@@ -1,0 +1,44 @@
+.video-general {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+}
+
+.background-general {
+  height: 100vh;
+  background: url("../assets/images/webpc-passthru.webp") no-repeat center
+    center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+.overlay {
+  background: linear-gradient(
+    139deg,
+    rgb(19 19 22 / 69%) 0%,
+    rgb(14 14 37 / 29%) 44%
+  );
+  padding: 16px;
+  border-radius: 10px;
+  color: azure;
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  background: #000;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
