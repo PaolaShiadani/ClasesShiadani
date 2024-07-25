@@ -1,22 +1,13 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MatTabsModule } from '@angular/material/tabs';
-import { QuienSoyComponent } from './quien-soy/quien-soy.component';
-import { ClasesPianoComponent } from './clases-piano/clases-piano.component';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-quien-soy',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    MatTabsModule,
-    QuienSoyComponent,
-    ClasesPianoComponent,
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  imports: [],
+  templateUrl: './quien-soy.component.html',
+  styleUrl: './quien-soy.component.scss',
 })
-export class AppComponent implements OnInit {
+export class QuienSoyComponent {
   @HostListener('window:resize', ['$event'])
   getScreenSize(): void {
     if (this.isPlatformBrowser()) {
@@ -24,7 +15,6 @@ export class AppComponent implements OnInit {
     }
   }
   public mobile = false;
-  title = 'paola-shiadani-pianista';
   public width = 640;
   public height = 360;
 
@@ -45,7 +35,7 @@ export class AppComponent implements OnInit {
     return false;
   }
 
-  public isPlatformBrowser(): boolean {
+  private isPlatformBrowser(): boolean {
     return typeof window !== 'undefined';
   }
 }

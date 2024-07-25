@@ -1,76 +1,14 @@
-<div [class.margin-top]="mobile" class="background-general">
-  <mat-tab-group>
+<div class="h-0 w-0">
+  <div class="background-general"></div>
+</div>
+<div [class.margin-top]="mobile">
+  <mat-tab-group color="primary">
     <mat-tab label="Acerca De Mi">
-      <div class="container-general flex flex-col justify-center gap-4">
-        <div class="video-general">
-          @if (mobile) {
-          <div class="video-container w-full">
-            <iframe
-              #videoPlayer
-              src="https://www.youtube.com/embed/FyEKfQiY7_g"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-          } @else {
-          <div>
-            <iframe
-              [width]="width"
-              [height]="height"
-              #videoPlayer
-              src="https://www.youtube.com/embed/FyEKfQiY7_g"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-          </div>
-          }
-        </div>
-
-        <div
-          class="rounded border-solid border-2 border-gold p-4 border-shadow-vino"
-        >
-          <div class="">
-            <h1>
-              ¿Quieres aprender a tocar piano o conoces a alguien que le
-              gustaría? ✨😍
-            </h1>
-            <p>🎹 Clases de piano personalizadas.</p>
-            <p>✅ Todas las edades y niveles.</p>
-            <p>🛜 Online o Presencial</p>
-            <p>🚹 Contacto Profesora Paola: (+52) 5527743092</p>
-            <a
-              href="https://www.superprof.mx/quieres-aprender-tocar-tus-melodias-favoritas-clases-piano-personalizadas-todas-las-edades-horarios-disponibles-solo.html"
-              target="_blank"
-              class="superprof-link"
-              >Link a mi anuncio de clases</a
-            >
-          </div>
-          <div class="social-media">
-            <h2>Redes sociales:</h2>
-            <a
-              href="https://youtube.com/@paolashiadani1046?si=hbc8hLI_4qryrebS"
-              target="_blank"
-              class="youtube"
-              >🔴 YouTube</a
-            >
-            <a
-              href="https://www.facebook.com/profile.php?id=100005557006169&mibextid=ZbWKwL"
-              target="_blank"
-              class="facebook"
-              >🔵 Facebook</a
-            >
-            <a
-              href="https://www.instagram.com/paola_shiadani?igsh=aHZocTRyOXpyYTI1"
-              target="_blank"
-              class="instagram"
-              >🟡 Instagram</a
-            >
-          </div>
-        </div>
-      </div>
+      <app-quien-soy></app-quien-soy>
     </mat-tab>
-    <mat-tab label="Second"> Content 2 </mat-tab>
+    <mat-tab label="Clases de piano">
+      <app-clases-piano></app-clases-piano>
+    </mat-tab>
     <mat-tab label="Third"> Content 3 </mat-tab>
   </mat-tab-group>
 </div>

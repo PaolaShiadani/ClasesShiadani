@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         wine: "#800020",
         crimson: "#DC143C",
-        gold: "#FFD700",
+        gold: "#F5c700",
         ebony: "#0C0C0C",
         pearl: "#FDFDFD",
         silver: "#C0C0C0",

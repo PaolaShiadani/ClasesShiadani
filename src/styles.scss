@@ -1,4 +1,5 @@
 @use "@angular/material" as mat;
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -6,7 +7,7 @@
 
 $wine: #800020;
 $crimson: #dc143c;
-$gold: #ffd700;
+$gold: #f5c700;
 $ebony: #0c0c0c;
 $pearl: #fdfdfd;
 $silver: #c0c0c0;
@@ -51,20 +52,20 @@ $paola-primary-custom: mat.define-palette(
 
 $paola-accent-custom: mat.define-palette(
   (
-    50: #f2e5e5,
-    100: #e6cccc,
-    200: #cc9999,
-    300: #b26666,
-    400: #993333,
-    500: $wine,
-    600: #b32424,
-    700: #8c1d1d,
-    800: #661515,
-    900: #330a0a,
-    A100: #ffcccc,
-    A200: #ff9999,
-    A400: #ff6666,
-    A700: #ff3333,
+    50: #fff8e1,
+    100: #ffecb3,
+    200: #ffe082,
+    300: #ffd54f,
+    400: #ffca28,
+    500: $gold,
+    600: #fbc02d,
+    700: #f9a825,
+    800: #f57f17,
+    900: #f57f17,
+    A100: #ffff8d,
+    A200: #ffff00,
+    A400: #ffea00,
+    A700: #ffd600,
     contrast: (
       50: $ebony,
       100: $ebony,
@@ -87,9 +88,9 @@ $paola-accent-custom: mat.define-palette(
 $paola-shiadani-pianista-theme: mat.define-light-theme(
   (
     color: (
-      primary: $paola-primary-custom,
-      accent: $paola-accent-custom,
-      warn: $custom-warn,
+      primary: $paola-primary,
+      accent: $paola-accent,
+      warn: $paola-primary,
     ),
     typography: mat.define-typography-config(),
   )
@@ -105,14 +106,25 @@ body {
 body {
   display: block;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Bodoni Moda SC", serif !important;
+  span {
+    font-family: "Bodoni Moda SC", serif;
+  }
+  p {
+    font-family: "Bodoni Moda SC", serif;
+  }
 }
 .container-general {
   margin: 32px;
   background: azure;
   padding: 32px;
   border-radius: 10px;
-  opacity: 0.9;
+  // opacity: 0.9;
+
+  @media (max-width: 600px) {
+    margin: 16px;
+    padding: 16px;
+  }
 }
 
 .border-shadow-vino {

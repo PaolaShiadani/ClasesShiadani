@@ -1,5 +1,19 @@
 .mat-mdc-tab-header {
-  background: azure;
   margin: 16px;
   border-radius: 16px;
+}
+
+.mat-mdc-card-outlined {
+  background: azure !important;
+}
+/* .mat-mdc-tab.mdc-tab--active:hover .mdc-tab__text-label {
+  @apply !text-gold;
+  color: antiquewhite !important;
+} */
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  @apply !text-gold;
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: #f5c700 !important;
 }
