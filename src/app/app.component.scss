@@ -5,6 +5,7 @@
     center fixed;
   background-size: cover;
   position: fixed;
-
+  display: flex;
+  flex-direction: column-reverse;
   top: 0px;
 }
