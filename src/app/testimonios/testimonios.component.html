@@ -1,0 +1,60 @@
+<div class="container-general flex flex-col justify-center gap-4">
+  @for (item of videsoArray; track $index) { @if
+  (isIndexVisible($index,indexPage,5)){
+  <mat-card appearance="outlined">
+    <mat-card-content
+      ><span class="text-lg">
+        Testimonio {{ $index + 1 }}
+      </span></mat-card-content
+    >
+    <div class="video-general p-2">
+      @if (mobile) {
+      <div class="video-container w-full">
+        <iframe
+          [src]="item"
+          title="Nuvole Bianche - Ludovico Einaudi (Paola Shiadani)"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      } @else {
+      <div>
+        <iframe
+          [width]="width"
+          [height]="height"
+          [src]="item"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      }
+    </div>
+    <mat-card-content>
+      <p class="text-sm">
+        Lorem Ipsum es simplemente el texto de relleno de las imprentas y
+        archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de
+        las industrias desde el año 1500, cuando un impresor (N. del T. persona
+        que se dedica a la imprenta) desconocido usó una galería de textos y los
+        mezcló de tal manera que logró hacer un libro de textos especimen. No
+        sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno
+        en documentos electrónicos, quedando esencialmente igual al original.
+        Fue popularizado en los 60s con la creación de las hojas "Letraset", las
+        cuales contenian pasajes de Lorem Ipsum, y más recientemente con
+        software de autoedición, como por ejemplo Aldus PageMaker, el cual
+        incluye versiones de Lorem Ipsum.
+      </p>
+    </mat-card-content>
+  </mat-card>
+  } }
+
+  <mat-paginator
+    [length]="testimoniosArray.length"
+    [pageSize]="5"
+    (page)="scrollToTopAndNewIndex($event.pageIndex)"
+  >
+    >
+  </mat-paginator>
+</div>

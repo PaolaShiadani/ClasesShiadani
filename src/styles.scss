@@ -12,9 +12,9 @@ $ebony: #0c0c0c;
 $pearl: #fdfdfd;
 $silver: #c0c0c0;
 $navy: #000080;
-$paola-primary: mat.define-palette(mat.$amber-palette, 100, A200, A700);
-$paola-accent: mat.define-palette(mat.$pink-palette, 100, A200, A700);
-$custom-warn: mat.define-palette(mat.$red-palette, 100, A200, A700);
+$paola-primary: mat.define-palette(mat.$amber-palette, 500, A200, A700);
+$paola-accent: mat.define-palette(mat.$amber-palette, 500, A200, A700);
+$custom-warn: mat.define-palette(mat.$amber-palette, 500, A200, A700);
 $paola-primary-custom: mat.define-palette(
   (
     50: #fff8e1,
@@ -92,7 +92,6 @@ $paola-shiadani-pianista-theme: mat.define-light-theme(
       accent: $paola-accent,
       warn: $paola-primary,
     ),
-    typography: mat.define-typography-config(),
   )
 );
 
@@ -116,14 +115,17 @@ body {
 }
 .container-general {
   margin: 32px;
-  background: azure;
+  background: #daf4ffb3;
   padding: 32px;
   border-radius: 10px;
   // opacity: 0.9;
+  width: 80%;
+  margin: auto;
 
   @media (max-width: 600px) {
     margin: 16px;
     padding: 16px;
+    width: auto;
   }
 }
 

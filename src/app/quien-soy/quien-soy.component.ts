@@ -1,9 +1,11 @@
 import { Component, HostListener } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-quien-soy',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './quien-soy.component.html',
   styleUrl: './quien-soy.component.scss',
 })

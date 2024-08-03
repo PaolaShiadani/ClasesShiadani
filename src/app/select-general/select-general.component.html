@@ -1,0 +1,42 @@
+<div class="w-full sm:w-auto">
+  <div>
+    <mat-label>{{ label }}</mat-label>
+    @if (toll !== '') {
+    <img class="aa-ca-icon" src="/assets/icons/info_outline.svg" />
+    }
+  </div>
+
+  <mat-form-field class="w-full sm:w-80" appearance="outline">
+    <mat-select [formControl]="formControlGeneral" [placeholder]="placeholder">
+      @for (item of arrayData; track $index) {
+      <mat-option
+        [value]="
+          inputSelect.name === ''
+            ? item
+            : getNestedProperty(item, inputSelect.name)
+        "
+        (click)="
+          emitDataClick(
+            inputSelect.data === ''
+              ? item
+              : getNestedProperty(item, inputSelect.data)
+          )
+        "
+        >{{
+          inputSelect.name === ""
+            ? item
+            : getNestedProperty(item, inputSelect.name)
+        }}</mat-option
+      >
+      }
+    </mat-select>
+    @if (formControlGeneral.hasError('required')) {
+    <mat-error>{{ "GENERAL.general_required_error" }}</mat-error>
+    } @if (formControlGeneral.errors &&
+    formControlGeneral.errors['errorGeneral']) {
+    <mat-error>
+      {{ formControlGeneral.errors!["errorGeneral"] }}
+    </mat-error>
+    }
+  </mat-form-field>
+</div>
