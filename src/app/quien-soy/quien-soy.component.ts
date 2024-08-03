@@ -1,11 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-quien-soy',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, MatCardModule],
   templateUrl: './quien-soy.component.html',
   styleUrl: './quien-soy.component.scss',
 })
