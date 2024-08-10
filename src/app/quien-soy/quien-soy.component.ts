@@ -1,7 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { ProfileData } from '../models/aboutMe-model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-quien-soy',
@@ -20,8 +22,9 @@ export class QuienSoyComponent {
   public mobile = false;
   public width = 640;
   public height = 360;
+  @Input() profileData: ProfileData | null = null;
 
-  constructor() {}
+  constructor(public sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     if (this.isPlatformBrowser()) {

@@ -1,10 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SelectGeneralComponent } from '../select-general/select-general.component';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { PromotionalModel } from '../models/promotional-model';
 
 @Component({
   selector: 'app-promocionales',
@@ -26,63 +27,24 @@ export class PromocionalesComponent {
   public width = 640;
   public height = 360;
   public indexPage = 0;
-  public videosArray = [
-    {
-      url: 'https://www.youtube.com/embed/fS37ajyTtzI',
-      type: 'Game',
-      titule: 'Shadow of The Colossus Orchestra',
-    },
-    {
-      url: 'https://www.youtube.com/embed/UDlyPDsNv5Q',
-      type: 'Game',
-      titule: 'Castle In The Mist -ICO',
-    },
-    {
-      url: 'https://www.youtube.com/embed/63OT3_Lfy50',
-      type: 'Anime',
-      titule: 'Howls Moving Castle',
-    },
-    {
-      url: 'https://www.youtube.com/embed/1KzF1KgaREo',
-      type: 'Clasico',
-      titule: 'Tchaikovsky: Ouverture 1812',
-    },
-    {
-      url: 'https://www.youtube.com/embed/jXrYzePVgAE',
-      type: 'Anime',
-      titule: 'Zoltraak - Frieren',
-    },
-    {
-      url: 'https://www.youtube.com/embed/T-ETAEbrVIo',
-      type: 'Soundtracks',
-      titule: 'El Señor de Los Anillos - LOTR - Ride of the Rohirrim',
-    },
-    {
-      url: 'https://www.youtube.com/embed/PCp2iXA1uLE',
-      type: 'Pop',
-      titule: 'Frederic Oddloop',
-    },
-  ];
+  @Input() promotional: PromotionalModel | null = null;
   public filter = ['All', 'Clasico', 'Soundtracks', 'Pop', 'Anime', 'Game'];
-  public videsoArray: { url: SafeResourceUrl; type: string; titule: string }[] =
-    [];
-  public videsoArrayFilter: {
-    url: SafeResourceUrl;
-    type: string;
-    titule: string;
-  }[] = [];
 
-  constructor(public sanitizer: DomSanitizer) {
-    this.videosArray.forEach((elemment) => {
-      const x = sanitizer.bypassSecurityTrustResourceUrl(elemment.url);
-      this.videsoArray.push({
-        url: x,
-        type: elemment.type,
-        titule: elemment.titule,
+  public videsoArrayFilter: PromotionalModel | null = null;
+
+  constructor(public sanitizer: DomSanitizer) {}
+
+  ngOnChanges(): void {
+    if (this.promotional) {
+      this.promotional.arrayVideos.forEach((element, index) => {
+        const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          element.url ?? ''
+        );
+        this.promotional!.arrayVideos[index].urlRes = sanitizedUrl;
       });
-    });
-
-    this.videsoArrayFilter = this.videsoArray;
+      this.filter = this.promotional.filter;
+      this.videsoArrayFilter = this.promotional;
+    }
   }
 
   ngOnInit(): void {
@@ -140,11 +102,13 @@ export class PromocionalesComponent {
 
   private filterVideos(filter: string): void {
     if (filter === 'All') {
-      this.videsoArrayFilter = this.videsoArray;
+      this.videsoArrayFilter = this.promotional;
     } else {
-      this.videsoArrayFilter = this.videsoArray.filter(
+      const x = this.promotional?.arrayVideos.filter(
         (video) => video.type === filter
       );
+
+      this.videsoArrayFilter!.arrayVideos = x ?? [];
     }
   }
 }

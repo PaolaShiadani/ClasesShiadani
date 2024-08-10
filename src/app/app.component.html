@@ -5,15 +5,17 @@
 </div>
 <div [class.margin-top]="mobile">
   <mat-tab-group (selectedIndexChange)="onTabChange($event)" color="primary">
-    <mat-tab label="Acerca De Mi">
-      <app-quien-soy></app-quien-soy>
+    <mat-tab [label]="profileData?.ModulName ?? ''">
+      <app-quien-soy [profileData]="profileData"></app-quien-soy>
     </mat-tab>
-    <mat-tab label="Clases de piano">
-      <app-clases-piano></app-clases-piano>
+    <mat-tab [label]="pianoLessons?.moduleName ?? ''">
+      <app-clases-piano [pianoLessons]="pianoLessons"></app-clases-piano>
     </mat-tab>
-    <mat-tab label="Testimonios"> <app-testimonios></app-testimonios> </mat-tab>
-    <mat-tab label="Videos promocionales">
-      <app-promocionales></app-promocionales>
+    <mat-tab [label]="successStories?.moduleName ?? ''">
+      <app-testimonios [successStories]="successStories"></app-testimonios>
+    </mat-tab>
+    <mat-tab [label]="promotional?.moduleName ?? ''">
+      <app-promocionales [promotional]="promotional"></app-promocionales>
     </mat-tab>
   </mat-tab-group>
 </div>

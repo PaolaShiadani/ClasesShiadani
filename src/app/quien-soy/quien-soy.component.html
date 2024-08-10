@@ -4,7 +4,11 @@
     <div class="video-container w-full">
       <iframe
         #videoPlayer
-        src="https://www.youtube.com/embed/FyEKfQiY7_g"
+        [src]="
+          sanitizer.bypassSecurityTrustResourceUrl(
+            profileData?.urlPresentacion ?? ''
+          )
+        "
         frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
@@ -16,7 +20,11 @@
         [width]="width"
         [height]="height"
         #videoPlayer
-        src="https://www.youtube.com/embed/FyEKfQiY7_g"
+        [src]="
+          sanitizer.bypassSecurityTrustResourceUrl(
+            profileData?.urlPresentacion ?? ''
+          )
+        "
         frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       ></iframe>
@@ -27,7 +35,7 @@
   <mat-card appearance="outlined">
     <mat-card-content
       ><span class="text-lg text-center items-center flex justify-center">
-        ¿Quieres aprender a tocar piano o conoces a alguien que le gustaría?
+        {{ profileData?.titule }}
       </span></mat-card-content
     >
     <div class="p-4 sm:p-8 flex flex-col">
@@ -56,27 +64,27 @@
           class="!bg-[#25d366] !w-[250px]"
           mat-fab
           extended
-          href="https://wa.me/5527743092?text=¡Hola!%20Estoy%20interesado%20en%20tomar%20clases%20de%20piano%20y%20me%20gustaría%20saber%20más%20sobre%20disponibilidad,%20horarios%20y%20precios.%20¿Podrías%20proporcionarme%20esta%20información,%20por%20favor?%20¡Gracias!"
+          [href]="
+            'https://wa.me/' +
+            profileData?.phone +
+            '?text=' +
+            profileData?.whatsappMessage
+          "
           target="_blank"
         >
           <mat-icon>
             <img src="../../assets/images/icons8-whatsapp-30.png" alt="" />
           </mat-icon>
-          (+52) 5527743092</a
+          {{ profileData?.phoneView }}</a
         >
-
-        <a
-          mat-fab
-          extended
-          href="https://www.superprof.mx/quieres-aprender-tocar-tus-melodias-favoritas-clases-piano-personalizadas-todas-las-edades-horarios-disponibles-solo.html"
-          target="_blank"
+        <a mat-fab extended [href]="profileData?.urlSelection" target="_blank"
           >Link a mi anuncio de clases</a
         >
       </div>
-      <div class="social-media gap-4 flex flex-col items-center">
+      <div class="social-media gap-4 flex flex-col items-center pt-2">
         <h2>Redes sociales:</h2>
         <a
-          href="https://youtube.com/@paolashiadani1046?si=hbc8hLI_4qryrebS"
+          [href]="profileData?.urlYoutube"
           target="_blank"
           mat-fab
           extended
@@ -92,7 +100,7 @@
         </a>
 
         <a
-          href="https://www.facebook.com/profile.php?id=100005557006169&mibextid=ZbWKwL"
+          [href]="profileData?.urlFacebook"
           target="_blank"
           mat-fab
           extended
@@ -108,7 +116,7 @@
         </a>
 
         <a
-          href="https://www.instagram.com/paola_shiadani?igsh=aHZocTRyOXpyYTI1"
+          [href]="profileData?.urlInstamgram"
           target="_blank"
           mat-fab
           extended

@@ -1,6 +1,7 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, Input, signal } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
+import { PianoClassProfile } from '../models/pianoLesson-model';
 
 @Component({
   selector: 'app-clases-piano',
@@ -11,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class ClasesPianoComponent {
   readonly panelOpenState = signal(false);
+  @Input() pianoLessons: PianoClassProfile | null = null;
   @HostListener('window:resize', ['$event'])
   getScreenSize(): void {
     if (this.isPlatformBrowser()) {

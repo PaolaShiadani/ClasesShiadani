@@ -1,7 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TestimoniesModule } from '../models/successStories-model';
 
 @Component({
   selector: 'app-testimonios',
@@ -21,22 +22,19 @@ export class TestimoniosComponent {
   public width = 640;
   public height = 360;
   public indexPage = 0;
-  public testimoniosArray = [
-    'https://www.youtube.com/embed/IaI11UsLtOc',
-    'https://www.youtube.com/embed/IaI11UsLtOc',
-    'https://www.youtube.com/embed/IaI11UsLtOc',
-    'https://www.youtube.com/embed/IaI11UsLtOc',
-    'https://www.youtube.com/embed/b0TyMq0yNxk',
-    'https://www.youtube.com/embed/b0TyMq0yNxk',
-    'https://www.youtube.com/embed/b0TyMq0yNxk',
-  ];
-  public videsoArray: SafeResourceUrl[] = [];
+  @Input() successStories: TestimoniesModule | null = null;
 
-  constructor(public sanitizer: DomSanitizer) {
-    this.testimoniosArray.forEach((elemment) => {
-      const x = sanitizer.bypassSecurityTrustResourceUrl(elemment);
-      this.videsoArray.push(x);
-    });
+  constructor(public sanitizer: DomSanitizer) {}
+
+  ngOnChanges(): void {
+    if (this.successStories) {
+      this.successStories.stories.forEach((element, index) => {
+        const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          element.urlVideo ?? ''
+        );
+        this.successStories!.stories[index].urlRes = sanitizedUrl;
+      });
+    }
   }
 
   ngOnInit(): void {
