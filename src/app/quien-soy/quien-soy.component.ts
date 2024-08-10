@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ProfileData } from '../models/aboutMe-model';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-quien-soy',
@@ -22,9 +22,17 @@ export class QuienSoyComponent {
   public mobile = false;
   public width = 640;
   public height = 360;
+  public resourceUrl: SafeResourceUrl | null = null;
   @Input() profileData: ProfileData | null = null;
 
   constructor(public sanitizer: DomSanitizer) {}
+
+  ngOnChanges(): void {
+    if (this.profileData) {
+      console.log(this.profileData);
+      this.resourceUrl = this.getSanitizer(this.profileData.urlPresentacion);
+    }
+  }
 
   ngOnInit(): void {
     if (this.isPlatformBrowser()) {
@@ -39,6 +47,11 @@ export class QuienSoyComponent {
       return sizeW <= 742 || sizeH <= 450;
     }
     return false;
+  }
+
+  public getSanitizer(url: string): SafeResourceUrl {
+    const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    return sanitizedUrl;
   }
 
   private isPlatformBrowser(): boolean {

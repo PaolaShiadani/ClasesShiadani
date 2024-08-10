@@ -99,7 +99,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { tab: index },
-      queryParamsHandling: 'merge',
     });
   }
 
@@ -136,7 +135,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscribeArray.push(
       this.firestoreService.getCollection('promotional').subscribe({
         next: (promotional: PromotionalModel[]) => {
-          console.log(promotional);
           this.promotional = promotional[0];
         },
       })

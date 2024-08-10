@@ -1,14 +1,12 @@
+@if (resourceUrl) {
+
 <div class="container-general flex flex-col justify-center gap-4">
   <div class="video-general">
     @if (mobile) {
     <div class="video-container w-full">
       <iframe
         #videoPlayer
-        [src]="
-          sanitizer.bypassSecurityTrustResourceUrl(
-            profileData?.urlPresentacion ?? ''
-          )
-        "
+        [src]="resourceUrl"
         frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
@@ -20,11 +18,7 @@
         [width]="width"
         [height]="height"
         #videoPlayer
-        [src]="
-          sanitizer.bypassSecurityTrustResourceUrl(
-            profileData?.urlPresentacion ?? ''
-          )
-        "
+        [src]="resourceUrl"
         frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       ></iframe>
@@ -134,3 +128,4 @@
     </div>
   </mat-card>
 </div>
+}
