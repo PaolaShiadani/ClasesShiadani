@@ -19,13 +19,19 @@ export class QuienSoyComponent {
       this.mobile = this.isMobile();
     }
   }
+  public load = false;
   public mobile = false;
   public width = 640;
   public height = 360;
   public resourceUrl: SafeResourceUrl | null = null;
   @Input() profileData: ProfileData | null = null;
 
-  constructor(public sanitizer: DomSanitizer) {}
+  constructor(public sanitizer: DomSanitizer) {
+    if (this.isPlatformBrowser()) {
+      this.mobile = this.isMobile();
+      this.load = true;
+    }
+  }
 
   ngOnChanges(): void {
     if (this.profileData) {
@@ -34,11 +40,7 @@ export class QuienSoyComponent {
     }
   }
 
-  ngOnInit(): void {
-    if (this.isPlatformBrowser()) {
-      this.mobile = this.isMobile();
-    }
-  }
+  ngOnInit(): void {}
 
   public isMobile(): boolean {
     if (this.isPlatformBrowser()) {

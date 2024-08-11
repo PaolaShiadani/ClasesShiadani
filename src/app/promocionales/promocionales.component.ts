@@ -5,7 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SelectGeneralComponent } from '../select-general/select-general.component';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { PromotionalModel } from '../models/promotional-model';
+import { PromotionalModel, VideoModel } from '../models/promotional-model';
 
 @Component({
   selector: 'app-promocionales',
@@ -24,13 +24,14 @@ export class PromocionalesComponent {
   public formFilters = new FormControl();
   public subscribeArray: Subscription[] = [];
   public mobile = false;
+  public load = false;
   public width = 640;
   public height = 360;
   public indexPage = 0;
   @Input() promotional: PromotionalModel | null = null;
   public filter = ['All', 'Clasico', 'Soundtracks', 'Pop', 'Anime', 'Game'];
 
-  public videsoArrayFilter: PromotionalModel | null = null;
+  public videsoArrayFilter: VideoModel[] = [];
 
   constructor(public sanitizer: DomSanitizer) {}
 
@@ -43,7 +44,12 @@ export class PromocionalesComponent {
         this.promotional!.arrayVideos[index].urlRes = sanitizedUrl;
       });
       this.filter = this.promotional.filter;
-      this.videsoArrayFilter = this.promotional;
+      this.promotional.arrayVideos.forEach((elemet) => {
+        this.videsoArrayFilter.push(elemet);
+        console.log(elemet);
+      });
+      this.load = true;
+      console.log(this.videsoArrayFilter);
     }
   }
 
@@ -102,13 +108,15 @@ export class PromocionalesComponent {
 
   private filterVideos(filter: string): void {
     if (filter === 'All') {
-      this.videsoArrayFilter = this.promotional;
+      this.promotional!.arrayVideos.forEach((elemet) => {
+        this.videsoArrayFilter.push(elemet);
+      });
     } else {
       const x = this.promotional?.arrayVideos.filter(
         (video) => video.type === filter
       );
 
-      this.videsoArrayFilter!.arrayVideos = x ?? [];
+      this.videsoArrayFilter = x ?? [];
     }
   }
 }

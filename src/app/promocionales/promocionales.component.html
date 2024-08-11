@@ -1,3 +1,5 @@
+@if (load) {
+
 <div class="container-general flex flex-col justify-center gap-4">
   <div class="flex flex-row-reverse">
     <app-select-general
@@ -8,7 +10,7 @@
     ></app-select-general>
   </div>
 
-  @for (video of videsoArrayFilter?.arrayVideos; track $index) { @if
+  @for (video of videsoArrayFilter; track $index) { @if
   (isIndexVisible($index,indexPage,5)){
   <mat-card appearance="outlined">
     <mat-card-content
@@ -50,7 +52,7 @@
   } }
 
   <mat-paginator
-    [length]="videsoArrayFilter?.arrayVideos"
+    [length]="videsoArrayFilter.length"
     [pageSize]="5"
     (page)="scrollToTopAndNewIndex($event.pageIndex)"
     [pageIndex]="indexPage"
@@ -58,3 +60,4 @@
     >
   </mat-paginator>
 </div>
+}
