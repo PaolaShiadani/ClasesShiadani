@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:paola-shiadani-pianista": "node dist/paola-shiadani-pianista/server/server.mjs"
+    "serve:ssr:paola-shiadani-pianista": "node dist/paola-shiadani-pianista/server/server.mjs",
+    "deploy": "ng build && firebase deploy"
   },
   "private": true,
   "dependencies": {

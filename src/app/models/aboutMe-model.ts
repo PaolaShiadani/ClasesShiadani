@@ -4,6 +4,7 @@ export interface ProfileData {
   urlFacebook: string;
   urlSelection: string;
   urlInstamgram: string;
+  urlTokTok: string;
   phone: string;
   phoneView: string;
   urlYoutube: string;

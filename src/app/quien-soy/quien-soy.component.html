@@ -4,34 +4,21 @@
   <div class="video-general">
     @if (mobile) {
     <div class="video-container w-full">
-      <iframe
-        #videoPlayer
-        [src]="resourceUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+      <iframe #videoPlayer [src]="resourceUrl" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     } @else {
     <div>
-      <iframe
-        [width]="width"
-        [height]="height"
-        #videoPlayer
-        [src]="resourceUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      ></iframe>
+      <iframe [width]="width" [height]="height" #videoPlayer [src]="resourceUrl" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
     </div>
     }
   </div>
 
   <mat-card appearance="outlined">
-    <mat-card-content
-      ><span class="text-lg text-center items-center flex justify-center">
+    <mat-card-content><span class="text-lg text-center items-center flex justify-center">
         {{ profileData?.titule }}
-      </span></mat-card-content
-    >
+      </span></mat-card-content>
     <div class="p-4 sm:p-8 flex flex-col">
       <div class="flex flex-col justify-center gap-4 items-center">
         <p>
@@ -54,76 +41,52 @@
         </p>
         <p class="underline text-base">Contacto Profesora Paola:</p>
 
-        <a
-          class="!bg-[#25d366] !w-[250px]"
-          mat-fab
-          extended
-          [href]="
+        <a class="!bg-[#25d366] !w-[250px]" mat-fab extended [href]="
             'https://wa.me/' +
             profileData?.phone +
             '?text=' +
             profileData?.whatsappMessage
-          "
-          target="_blank"
-        >
+          " target="_blank">
           <mat-icon>
             <img src="../../assets/images/icons8-whatsapp-30.png" alt="" />
           </mat-icon>
-          {{ profileData?.phoneView }}</a
-        >
-        <a mat-fab extended [href]="profileData?.urlSelection" target="_blank"
-          >Link a mi anuncio de clases</a
-        >
+          {{ profileData?.phoneView }}</a>
+        <a mat-fab extended [href]="profileData?.urlSelection" target="_blank">Link a mi anuncio de clases</a>
       </div>
       <div class="social-media gap-4 flex flex-col items-center pt-2">
         <h2>Redes sociales:</h2>
-        <a
-          [href]="profileData?.urlYoutube"
-          target="_blank"
-          mat-fab
-          extended
-          class="flex items-center justify-center !bg-[#FF0000] !text-white !w-[250px]"
-        >
+        <a [href]="profileData?.urlYoutube" target="_blank" mat-fab extended
+          class="flex items-center justify-center !bg-[#FF0000] !text-white !w-[250px]">
           <mat-icon>
-            <img
-              src="../../assets/images/icons8-youtube-24.png"
-              alt="YouTube"
-            />
+            <img src="../../assets/images/icons8-youtube-24.png" alt="YouTube" />
           </mat-icon>
           YouTube
         </a>
 
-        <a
-          [href]="profileData?.urlFacebook"
-          target="_blank"
-          mat-fab
-          extended
-          class="!bg-[#1877F2] !text-white !w-[250px]"
-        >
+        <a [href]="profileData?.urlTokTok" target="_blank" mat-fab extended
+          class="flex items-center justify-center !bg-[#FE2C55] !text-white !w-[250px]">
           <mat-icon>
-            <img
-              src="../../assets/images/icons8-facebook-nuevo-24.png"
-              alt="Facebook"
-            />
+            <img src="../../assets/images/icons8-tik-tok-50.png" alt="Instagram" />
+          </mat-icon>
+          Tik tiok
+        </a>
+
+        <a [href]="profileData?.urlFacebook" target="_blank" mat-fab extended
+          class="!bg-[#1877F2] !text-white !w-[250px]">
+          <mat-icon>
+            <img src="../../assets/images/icons8-facebook-nuevo-24.png" alt="Facebook" />
           </mat-icon>
           Facebook
         </a>
 
-        <a
-          [href]="profileData?.urlInstamgram"
-          target="_blank"
-          mat-fab
-          extended
-          class="flex items-center justify-center !bg-[#5B51D8] !text-white !w-[250px]"
-        >
+        <a [href]="profileData?.urlInstamgram" target="_blank" mat-fab extended
+          class="flex items-center justify-center !bg-[#5B51D8] !text-white !w-[250px]">
           <mat-icon>
-            <img
-              src="../../assets/images/icons8-instagram-24.png"
-              alt="Instagram"
-            />
+            <img src="../../assets/images/icons8-instagram-24.png" alt="Instagram" />
           </mat-icon>
           Instagram
         </a>
+
       </div>
     </div>
   </mat-card>
