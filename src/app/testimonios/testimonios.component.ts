@@ -24,7 +24,7 @@ export class TestimoniosComponent {
   public indexPage = 0;
   @Input() successStories: TestimoniesModule | null = null;
 
-  constructor(public sanitizer: DomSanitizer) {}
+  constructor(public sanitizer: DomSanitizer) { }
 
   ngOnChanges(): void {
     if (this.successStories) {
@@ -66,11 +66,16 @@ export class TestimoniosComponent {
     return index >= startIndex && index <= endIndex;
   }
 
-  public scrollToTopAndNewIndex(page: number): void {
-    this.indexPage = page;
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth', // Opcional: hace que el desplazamiento sea suave
-    });
+  public newIndex(page: number): void {
+    const element = document.getElementById('scrollableDiv2');
+    if (element) {
+      element.scrollTo({
+        top: 0, // Mover al inicio
+        behavior: 'smooth' // Desplazamiento suave
+      });
+    }
+    setTimeout(() => {
+      this.indexPage = page;
+    }, 500);
   }
 }

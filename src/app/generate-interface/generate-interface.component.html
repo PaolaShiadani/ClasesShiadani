@@ -1,0 +1,304 @@
+@if (upgradeData?.viewData) {
+<div class="container mx-auto p-6 ">
+
+  <mat-tab-group>
+    <mat-tab label="Crear Nuevo Perfil">
+      <div [formGroup]="profileForm">
+        <div class="grid gap-4 md:grid-cols-2">
+          <mat-form-field class="w-full">
+            <mat-label>Nombre del Módulo</mat-label>
+            <input matInput formControlName="ModulName" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>URL de Facebook</mat-label>
+            <input matInput formControlName="urlFacebook" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>URL de Selección</mat-label>
+            <input matInput formControlName="urlSelection" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>URL de Instagram</mat-label>
+            <input matInput formControlName="urlInstamgram" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>URL de TikTok</mat-label>
+            <input matInput formControlName="urlTokTok" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Número de Teléfono</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Teléfono Visible</mat-label>
+            <input matInput formControlName="phoneView" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>URL de YouTube</mat-label>
+            <input matInput formControlName="urlYoutube" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="titule" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>URL de Presentación</mat-label>
+            <input matInput formControlName="urlPresentacion" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Mensaje de WhatsApp</mat-label>
+            <textarea matInput formControlName="whatsappMessage" placeholder="Mensaje de WhatsApp"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="flex gap-6 justify-end mt-6">
+          <button class="bg-amber-300" mat-raised-button color="primary" (click)="updateProfile()"
+            [disabled]="profileForm.invalid">
+            Crear Perfil
+          </button>
+
+          <button mat-raised-button class="!bg-red-600 text-white " (click)="this.firestoreService.upgradeDataPermis()">
+            Ocultar Edicion
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Clases de piano">
+      <div [formGroup]="pianoClassForm">
+
+        <!-- Campo para el nombre del módulo -->
+        <mat-form-field class="w-full">
+          <mat-label>Nombre del módulo</mat-label>
+          <input matInput formControlName="moduleName" placeholder="Nombre del módulo" />
+        </mat-form-field>
+
+        <div class="flex gap-4 items-center pb-8">
+          <label for="imageInput" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            Actualiza imagen
+            <input style="display: none;" placeholder="Cambiar imagen" type="file" id="imageInput" accept="image/*"
+              (change)="upFile($event)" />
+          </label>
+        </div>
+
+        <!-- Campo para la URL de la imagen -->
+        <mat-form-field class="w-full">
+          <mat-label>URL de la imagen de perfil</mat-label>
+          <input matInput formControlName="urlProfileImg" placeholder="URL de la imagen" />
+        </mat-form-field>
+
+
+
+        <!-- Campo para el título -->
+        <mat-form-field class="w-full">
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="titule" placeholder="Título del módulo" />
+        </mat-form-field>
+
+        <!-- Campo para el cuerpo del texto -->
+        <mat-form-field class="w-full">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="textBody" placeholder="Descripción del módulo"></textarea>
+        </mat-form-field>
+
+        <!-- Campo para el temario -->
+        <div formArrayName="syllabus">
+          @for (topic of syllabusControls.controls; track topic; let i = $index) {
+          Tema
+          <div class="w-full h-[1px] bg-[#ffc107] my-2"></div>
+          <div [formGroupName]="i" class="mb-4 ">
+            <mat-form-field class="w-full">
+              <mat-label>Tema</mat-label>
+              <input matInput formControlName="topicName" placeholder="Nombre del tema" />
+            </mat-form-field>
+
+            <div formArrayName="topicBody" class="ml-4">
+              @for (subtopic of getSubtopics(i).controls; track subtopic; ; let j = $index) {
+              Subtema
+              <div class="w-full h-[1px] bg-[#ffc107] my-2"></div>
+              <div [formGroupName]="j">
+                <mat-form-field class="w-full">
+                  <mat-label>Subtítulo</mat-label>
+                  <input matInput formControlName="subtopicTilule" placeholder="Título del subtema" />
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                  <mat-label>Texto del Subtema</mat-label>
+                  <textarea matInput formControlName="subtopicText" placeholder="Texto del subtema"></textarea>
+                </mat-form-field>
+              </div>
+              }
+              <button class="bg-amber-300" mat-raised-button color="primary" type="button"
+                (click)="addSubtopic(i)">Agregar
+                Subtema</button>
+            </div>
+          </div>
+          }
+          <button class="bg-amber-300" mat-raised-button color="accent" type="button" (click)="addTopic()">Agregar
+            Tema</button>
+        </div>
+
+        <!-- Botón de envío -->
+
+        <div class="flex gap-6 justify-end mt-6">
+
+          <button class="bg-amber-300" mat-raised-button color="primary" (click)="updatePianoClassProfile()"
+            [disabled]="pianoClassForm.invalid">Guardar</button>
+
+          <button mat-raised-button class="!bg-red-600 text-white " (click)="this.firestoreService.upgradeDataPermis()">
+            Ocultar Edicion
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Experiencias">
+      <div [formGroup]="testimoniesForm">
+
+        <mat-form-field class="w-full">
+          <mat-label>Nombre del Módulo</mat-label>
+          <input matInput formControlName="moduleName" placeholder="Nombre del módulo" />
+        </mat-form-field>
+
+        <!-- Lista de historias -->
+        <div formArrayName="stories">
+          @for (storyControl of storiesControls.controls; track storyControl; let i = $index) {
+          <div [formGroupName]="i" class="story-group">
+            <mat-form-field class="w-full">
+              <mat-label>Título</mat-label>
+              <input matInput formControlName="titule" placeholder="Título de la historia" />
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Cuerpo del Texto</mat-label>
+              <textarea matInput formControlName="textBody" placeholder="Texto de la historia"></textarea>
+            </mat-form-field>
+
+            <!-- <mat-form-field class="w-full">
+              <mat-label>URL de Imagen</mat-label>
+              <input matInput formControlName="urlImg" placeholder="URL de la imagen" />
+            </mat-form-field> -->
+
+            <mat-form-field class="w-full">
+              <mat-label>URL de Video</mat-label>
+              <input matInput formControlName="urlVideo" placeholder="URL del video" />
+            </mat-form-field>
+
+            <button mat-raised-button class="!bg-red-400" type=" button" (click)="removeStory(i)">
+              Eliminar Historia
+            </button>
+          </div>
+          }
+        </div>
+
+        <div class="flex mt-6">
+          <button mat-raised-button color="primary" type="button" (click)="addStory()">Agregar Historia</button>
+        </div>
+
+        <div class="flex gap-6 justify-end mt-6">
+          <button [disabled]="testimoniesForm.invalid" (click)="saveTestimoniesForm()" class="bg-amber-300"
+            mat-raised-button color="primary">Guardar</button>
+
+          <button mat-raised-button class="!bg-red-600 text-white " (click)="this.firestoreService.upgradeDataPermis()">
+            Ocultar Edicion
+          </button>
+        </div>
+
+      </div>
+    </mat-tab>
+    <mat-tab label="Videos">
+      <div [formGroup]="promotionalForm">
+
+        <mat-form-field class="w-full">
+          <mat-label>Nombre del Módulo</mat-label>
+          <input matInput formControlName="moduleName" placeholder="Nombre del módulo" />
+        </mat-form-field>
+
+        <div class="text-black ">
+          Filtro
+        </div>
+
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Nombre del Módulo</mat-label>
+            <input matInput placeholder="Nombre del módulo" [formControl]="newFilter" />
+          </mat-form-field>
+
+          <button mat-raised-button class="!bg-amber-300 !text-black " (click)="addFilter()">
+            Add Filter
+          </button>
+
+        </div>
+
+        <div class="text-black my-5">
+          @for (filter of promotional?.filter; track $index) {
+          <div class="border border-gray-300 rounded-md shadow-sm items-center flex justify-around gap-4 p-3">
+            <span class="w-28">{{ filter }}</span>
+            <button mat-raised-button class="!bg-red-600 !text-white " (click)="deleteFilter($index)">
+              Eliminar
+            </button>
+            <button mat-raised-button class="!bg-blue-600 !text-white " (click)="moveFilter($index, 'up')">
+              up
+            </button>
+            <button mat-raised-button class="!bg-blue-600 !text-white" (click)="moveFilter($index, 'down')">
+              down
+            </button>
+          </div>
+          }
+        </div>
+
+        <!-- Videos -->
+        <div formArrayName="arrayVideos">
+          @for (video of arrayVideosControls.controls; track video; let i = $index) {
+          <div [formGroupName]="i" class="mb-4">
+            <mat-form-field class="w-full">
+              <mat-label>Descripción</mat-label>
+              <input matInput formControlName="description" placeholder="Descripción" />
+            </mat-form-field>
+            <mat-form-field class="w-full">
+              <mat-label>URL</mat-label>
+              <input matInput formControlName="url" placeholder="URL del video" />
+            </mat-form-field>
+            <mat-form-field class="w-full">
+              <mat-label>Título</mat-label>
+              <input matInput formControlName="titule" placeholder="Título del video" />
+            </mat-form-field>
+            <mat-form-field class="w-full">
+              <mat-label>Tipo</mat-label>
+              <input matInput formControlName="type" placeholder="Tipo de video" />
+            </mat-form-field>
+            <button mat-raised-button class="!bg-red-400" type="button" (click)="removeVideo(i)">Eliminar Video</button>
+          </div>
+          }
+          <button mat-raised-button class="!bg-amber-300" (click)="addVideo()">Agregar Video</button>
+        </div>
+
+
+        <div class="flex gap-4 justify-end mt-6">
+          <button [disabled]="promotionalForm.invalid" (click)="savePromotionalModel()" class="bg-amber-300"
+            mat-raised-button color="primary">Guardar</button>
+          <button mat-raised-button class="!bg-red-600 text-white " (click)="this.firestoreService.upgradeDataPermis()">
+            Ocultar Edicion
+          </button>
+        </div>
+
+
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+
+</div>
+
+}@else {
+<div class="text-lg flex justify-center text-black h-full items-center ">
+  No tienes permisos de edicion
+</div>
+}

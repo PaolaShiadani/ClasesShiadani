@@ -1,0 +1,12 @@
+.background-general {
+  height: 100svh;
+  width: 100%;
+  background: url("../../assets/images/pexels-cottonbro-9400310.jpg") no-repeat center
+    center fixed;
+  background-size: cover;
+  // position: fixed;
+  display: flex;
+  flex-direction: column;
+  // top: 0px;
+  overflow: none;
+}

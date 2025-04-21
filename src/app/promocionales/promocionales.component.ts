@@ -33,7 +33,7 @@ export class PromocionalesComponent {
 
   public videsoArrayFilter: VideoModel[] = [];
 
-  constructor(public sanitizer: DomSanitizer) {}
+  constructor(public sanitizer: DomSanitizer) { }
 
   ngOnChanges(): void {
     if (this.promotional) {
@@ -46,10 +46,8 @@ export class PromocionalesComponent {
       this.filter = this.promotional.filter;
       this.promotional.arrayVideos.forEach((elemet) => {
         this.videsoArrayFilter.push(elemet);
-        console.log(elemet);
       });
       this.load = true;
-      console.log(this.videsoArrayFilter);
     }
   }
 
@@ -89,12 +87,20 @@ export class PromocionalesComponent {
     return index >= startIndex && index <= endIndex;
   }
 
-  public scrollToTopAndNewIndex(page: number): void {
-    this.indexPage = page;
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+  public newIndex(page: number): void {
+    const element = document.getElementById('scrollableDiv');
+    if (element) {
+      element.scrollTo({
+        top: 0, // Mover al inicio
+        behavior: 'smooth' // Desplazamiento suave
+      });
+    }
+
+    setTimeout(() => {
+      this.indexPage = page;
+    }, 200);
+
+
   }
 
   public onChangeSelectFilter(): void {

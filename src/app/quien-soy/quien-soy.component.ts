@@ -23,6 +23,7 @@ export class QuienSoyComponent {
   public mobile = false;
   public width = 640;
   public height = 360;
+  public sizeH = 0;
   public resourceUrl: SafeResourceUrl | null = null;
   @Input() profileData: ProfileData | null = null;
 
@@ -35,18 +36,17 @@ export class QuienSoyComponent {
 
   ngOnChanges(): void {
     if (this.profileData) {
-      console.log(this.profileData);
-      this.resourceUrl = this.getSanitizer(this.profileData.urlPresentacion);
+      this.resourceUrl = this.getSanitizer(this.profileData.urlPresentacion + '?autoplay=1&mute=1&cc_load_policy=0');
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   public isMobile(): boolean {
     if (this.isPlatformBrowser()) {
       const sizeW = window.innerWidth;
-      const sizeH = window.innerHeight;
-      return sizeW <= 742 || sizeH <= 450;
+      this.sizeH = window.innerHeight;
+      return sizeW <= 742 || this.sizeH <= 450;
     }
     return false;
   }

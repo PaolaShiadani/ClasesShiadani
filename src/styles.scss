@@ -1,5 +1,7 @@
 @use "@angular/material" as mat;
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Charm:wght@400;700&family=Pompiere&display=swap');
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -100,35 +102,80 @@ $paola-shiadani-pianista-theme: mat.define-light-theme(
 html,
 body {
   height: 100%;
+  color: white;
 }
 
 body {
   display: block;
   margin: 0;
-  font-family: "Bodoni Moda SC", serif !important;
+  // font-family: "Bodoni Moda SC", serif !important;
+  font-family: "Bodoni Moda", serif;
+  font-optical-sizing: auto;
+  font-weight: 10px;
+  font-style: normal;
+
+
   span {
-    font-family: "Bodoni Moda SC", serif;
+    // font-family: "Bodoni Moda SC", serif;
+     font-family: "Bodoni Moda", serif;
   }
   p {
-    font-family: "Bodoni Moda SC", serif;
+    // font-family: "Bodoni Moda SC", serif;
+     font-family: "Bodoni Moda", serif;
   }
 }
 .container-general {
-  margin: 32px;
-  background: #daf4ffb3;
-  padding: 32px;
+  // margin: 32px;
+  background: rgb(42 23 16 / 64%);
+  // padding: 32px;
   border-radius: 10px;
-  // opacity: 0.9;
-  width: 80%;
-  margin: auto;
+  // border: 1px solid #f5c700;
+  // overflow: auto;
 
-  @media (max-width: 600px) {
-    margin: 16px;
-    padding: 16px;
-    width: auto;
+  margin: 0 auto 16px auto;
+  padding: 16px;
+  width: 700px;
+  @media (max-width: 768px) {
+    width: 600px;
+  }
+  /* Para celulares (pantallas pequeñas) */
+  @media (max-width: 640px) {
+    width: 360px;
   }
 }
 
 .border-shadow-vino {
   box-shadow: 6px 4px 0px 0px rgba(128, 0, 32, 0.3);
+}
+
+.overflow-auto {
+  height: calc(100svh - 125px - 56px - 28px);
+}
+
+.overflow-auto::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.overflow-auto::-webkit-scrollbar:vertical {
+  width: 4px;
+  @media (max-width: 600px) {
+    width: 0px;
+  }
+}
+
+.overflow-auto::-webkit-scrollbar-button:increment,
+.overflow-auto::-webkit-scrollbar-button {
+  display: none;
+}
+.overflow-auto::-webkit-scrollbar:horizontal {
+  height: 0px;
+  display: none;
+}
+.overflow-auto::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 2px;
+  border: 1px solid var(--system-brand-ares-2, #f5c700);
+  background: var(--system-overlay-black-90050, #f5c700);
+}
+.overflow-auto::-webkit-scrollbar-track {
+  border-radius: 10px;
 }

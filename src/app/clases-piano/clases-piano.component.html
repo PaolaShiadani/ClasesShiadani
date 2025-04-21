@@ -1,16 +1,10 @@
 <div class="container-general flex flex-col justify-center gap-4">
   <mat-card appearance="outlined">
-    <mat-card-content
-      ><span class="text-lg">
+    <mat-card-content><span class="text-lg">
         {{ pianoLessons?.titule }}
-      </span></mat-card-content
-    >
-    <img
-      class="h-[200px] md:h-[500px] object-cover p-2"
-      mat-card-image
-      [src]="pianoLessons?.urlProfileImg"
-      alt="Photo of a Shiba Inu"
-    />
+      </span></mat-card-content>
+    <img class="h-[200px] md:h-[500px] object-cover p-2" mat-card-image [src]="pianoLessons?.urlProfileImg"
+      alt="Photo of a Shiba Inu" />
     <mat-card-content>
       <p class="text-sm">
         {{ pianoLessons?.textBody ?? "" }}
@@ -21,21 +15,21 @@
   <mat-accordion>
     @for (syllabu of pianoLessons?.syllabus; track $index) {
 
-    <mat-expansion-panel class="!bg-[#e3fffe]">
-      <mat-expansion-panel-header class="!bg-[#e3fffe]">
-        <mat-panel-title class="!bg-[#e3fffe]" class="text-base">
+    <mat-expansion-panel class="!bg-[#5f021a]">
+      <mat-expansion-panel-header class="!bg-[#5f021a]">
+        <mat-panel-title class="!bg-[#5f021a]" class="text-base">
           {{ syllabu.topicName }}
         </mat-panel-title>
       </mat-expansion-panel-header>
       @for (topic of syllabu.topicBody; track $index) { @if
       (topic.subtopicTilule.length) {
 
-      <p class="text-sm py-3">
+      <p class="text-sm py-3 text-white">
         {{ topic.subtopicTilule }}
       </p>
       }
 
-      <p class="text-sm">
+      <p class="text-sm text-white">
         {{ topic.subtopicText }}
       </p>
       }

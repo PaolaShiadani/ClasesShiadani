@@ -1,6 +1,6 @@
 import { SafeResourceUrl } from '@angular/platform-browser';
 
-interface Story {
+export interface Story {
   titule: string;
   textBody: string;
   urlImg?: string; // Esta propiedad es opcional

@@ -5,7 +5,7 @@ export interface VideoModel {
   url: string;
   titule: string;
   type: string;
-  urlRes?: SafeResourceUrl;
+  urlRes?: SafeResourceUrl | string;
 }
 
 export interface PromotionalModel {

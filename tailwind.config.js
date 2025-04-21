@@ -7,6 +7,7 @@ module.exports = {
         wine: "#800020",
         crimson: "#DC143C",
         "gold-custom": "#F5c700",
+        // "gold-custom": "#ffff",
         "ebony-custom": "#0C0C0C",
         "pearl-custom": "#FDFDFD",
         "silver-custom": "#C0C0C0",

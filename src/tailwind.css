@@ -1,25 +1,71 @@
 .mat-mdc-tab-header {
-  margin: 16px;
-  border-radius: 16px;
+  padding: 0 16px 16px 16px;
+  margin-bottom: 20px;
+  border-radius: 0 0 16px 16px;
+  background: #5f021a;
+
+  .mat-mdc-tab .mdc-tab__text-label {
+    color: white;
+  }
 }
 
 .mat-mdc-card-outlined {
   background: #ffffff00 !important;
-}
-/* .mat-mdc-tab.mdc-tab--active:hover .mdc-tab__text-label {
-  @apply !text-gold;
-  color: antiquewhite !important;
-} */
-/* .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-  @apply !text-gold-custom;
+  border-style: none !important;
 }
 
-.mat-mdc-tab .mdc-tab-indicator__content--underline {
-  border-color: #f5c700 !important;
-} */
+.mat-mdc-tab-body-content {
+  height: calc(100svh - 144px) !important;
+}
 
+.mat-mdc-tab-body-content::-webkit-scrollbar {
+  display: none;
+}
+/*paginador*/
+
+.mat-mdc-paginator-icon{
+  fill: white !important;
+}
 .mat-mdc-paginator {
-  @apply !bg-[#e3fffe] shadow-md;
-
+  @apply !bg-[#5f021a] shadow-md;
   border-radius: 10px !important;
+  color: white !important;
+}
+/*panels expansion*/
+.mat-expansion-panel-header-title {
+  color: white !important;
+}
+
+/*inputs*/
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__trailing {
+  /* border-color: #dfd087 !important; */
+  border-color: white !important;
+}
+
+.mat-mdc-select-placeholder {
+  /* color: #dfd087 !important; */
+  color: white !important;
+}
+
+/*TABS*/
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label{
+  /* --mdc-tab-indicator-active-indicator-color
+   */
+   /* color: #dfd087 !important; */
+   color: white !important;
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline{
+  /* border-color: #dfd087 !important; */
+  border-color: white !important;
+}
+
+.mat-mdc-tab-header-pagination-chevron{
+  border-color: white !important;
 }

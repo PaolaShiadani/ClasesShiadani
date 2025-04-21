@@ -1,94 +1,126 @@
-@if (resourceUrl && load) {
-
-<div class="container-general flex flex-col justify-center gap-4">
-  <div class="video-general">
-    @if (mobile) {
-    <div class="video-container w-full">
-      <iframe #videoPlayer [src]="resourceUrl" frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    } @else {
-    <div>
-      <iframe [width]="width" [height]="height" #videoPlayer [src]="resourceUrl" frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-    </div>
-    }
-  </div>
-
-  <mat-card appearance="outlined">
-    <mat-card-content><span class="text-lg text-center items-center flex justify-center">
-        {{ profileData?.titule }}
-      </span></mat-card-content>
-    <div class="p-4 sm:p-8 flex flex-col">
-      <div class="flex flex-col justify-center gap-4 items-center">
-        <p>
-          <mat-icon>
-            <img src="../../assets/images/icons8-piano-50.png" alt="" />
-          </mat-icon>
-          Clases de piano personalizadas.
-        </p>
-        <p>
-          <mat-icon>
-            <img src="../../assets/images/icons8-practice-64.png" alt="" />
-          </mat-icon>
-          Todas las edades y niveles.
-        </p>
-        <p>
-          <mat-icon>
-            <img src="../../assets/images/icons8-wifi-24.png" alt="" />
-          </mat-icon>
-          Online o Presencial
-        </p>
-        <p class="underline text-base">Contacto Profesora Paola:</p>
-
-        <a class="!bg-[#25d366] !w-[250px]" mat-fab extended [href]="
-            'https://wa.me/' +
-            profileData?.phone +
-            '?text=' +
-            profileData?.whatsappMessage
-          " target="_blank">
-          <mat-icon>
-            <img src="../../assets/images/icons8-whatsapp-30.png" alt="" />
-          </mat-icon>
-          {{ profileData?.phoneView }}</a>
-        <a mat-fab extended [href]="profileData?.urlSelection" target="_blank">Link a mi anuncio de clases</a>
+<div>
+  @if (resourceUrl && load) {
+    <div class="container-general flex flex-col justify-center gap-4 py-4">
+      <div class="video-general sticky md:relative top-0 z-10">
+        @if (mobile) {
+          <div class="video-container w-full">
+            <iframe
+              [src]="resourceUrl"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        } @else {
+          <div>
+            <iframe
+              [width]="width"
+              [height]="height"
+              [src]="resourceUrl"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        }
       </div>
-      <div class="social-media gap-4 flex flex-col items-center pt-2">
-        <h2>Redes sociales:</h2>
-        <a [href]="profileData?.urlYoutube" target="_blank" mat-fab extended
-          class="flex items-center justify-center !bg-[#FF0000] !text-white !w-[250px]">
-          <mat-icon>
-            <img src="../../assets/images/icons8-youtube-24.png" alt="YouTube" />
-          </mat-icon>
-          YouTube
-        </a>
 
-        <a [href]="profileData?.urlTokTok" target="_blank" mat-fab extended
-          class="flex items-center justify-center !bg-[#FE2C55] !text-white !w-[250px]">
-          <mat-icon>
-            <img src="../../assets/images/icons8-tik-tok-50.png" alt="Instagram" />
-          </mat-icon>
-          Tik tiok
-        </a>
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <span class="text-lg text-center items-center flex justify-center">
+            {{ profileData?.titule }}
+          </span>
+        </mat-card-content>
+        <div class="p-4 sm:p-8 flex flex-col gap-4">
+          <div class="flex flex-col justify-center gap-4 items-center">
+            <p>
+              <mat-icon>
+                <img src="../../assets/images/icons8-piano-50.png" alt="" />
+              </mat-icon>
+              Clases de piano personalizadas.
+            </p>
+            <p>
+              <mat-icon> check_circle </mat-icon>
+              Todas las edades y niveles.
+            </p>
+            <p>
+              <mat-icon>
+                <img src="../../assets/images/icons8-wifi-24.png" alt="" />
+              </mat-icon>
+              Online o Presencial
+            </p>
+          </div>
 
-        <a [href]="profileData?.urlFacebook" target="_blank" mat-fab extended
-          class="!bg-[#1877F2] !text-white !w-[250px]">
-          <mat-icon>
-            <img src="../../assets/images/icons8-facebook-nuevo-24.png" alt="Facebook" />
-          </mat-icon>
-          Facebook
-        </a>
+          <div
+            class="social-media gap-4 flex flex-col items-center pt-2 border-2 border-[#5f021a]"
+          >
+            <div
+              class="items-center px-5 py-2.5 rounded-lg w-full flex justify-center flex-wrap gap-4"
+            >
+              <a
+                class="!bg-none"
+                extended
+                [href]="
+                  'https://wa.me/' +
+                  profileData?.phone +
+                  '?text=' +
+                  profileData?.whatsappMessage
+                "
+                target="_blank"
+              >
+                <img class="!w-[60px]" src="../../assets/images/facebook.png" alt="" />
+              </a>
 
-        <a [href]="profileData?.urlInstamgram" target="_blank" mat-fab extended
-          class="flex items-center justify-center !bg-[#5B51D8] !text-white !w-[250px]">
-          <mat-icon>
-            <img src="../../assets/images/icons8-instagram-24.png" alt="Instagram" />
-          </mat-icon>
-          Instagram
-        </a>
+              <a
+                class="!bg-none"
+                extended
+                [href]="profileData?.urlSelection"
+                target="_blank"
+              >
+                <img class="!w-[60px]" src="../../assets/images/facebook.png" alt="" />
+              </a>
 
-      </div>
+              <a
+                class="!bg-none"
+                [href]="profileData?.urlYoutube"
+                target="_blank"
+                extended
+              >
+                <img class="!w-[60px]" src="../../assets/images/facebook.png" alt="" />
+              </a>
+
+              <a
+                class="!bg-none"
+                [href]="profileData?.urlTokTok"
+                target="_blank"
+                extended
+              >
+                <img class="!w-[60px]" src="../../assets/images/facebook.png" alt="" />
+              </a>
+
+              <a
+                class="!bg-none"
+                [href]="profileData?.urlFacebook"
+                target="_blank"
+                extended
+              >
+                <img class="!w-[60px]" src="../../assets/images/facebook.png" alt="" />
+              </a>
+
+              <a
+                class="!bg-none"
+                [href]="profileData?.urlInstamgram"
+                target="_blank"
+                extended
+              >
+                <img class="!w-[60px]" src="../../assets/images/facebook.png" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </mat-card>
     </div>
-  </mat-card>
+  }
 </div>
-}
