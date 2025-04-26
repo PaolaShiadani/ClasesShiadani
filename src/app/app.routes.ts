@@ -4,13 +4,17 @@ import { GenerateInterfaceComponent } from './generate-interface/generate-interf
 
 export const routes: Routes = [
   {
-    path: 'upgradeData/:id',
-    component: GenerateInterfaceComponent, // Componente principal
-  },
-  {
     path: '',
     component: WebPublicComponent, // Componente principal
   },
+  // {
+  //   path: ':id',
+  //   component: GenerateInterfaceComponent, // Componente principal
+  // },
+  // {
+  //   path: 'lqtJrGOMFjPUmgZjik7C',
+  //   component: GenerateInterfaceComponent, // Componente principal
+  // },
   {
     path: '**',
     redirectTo: '', // Redirección para rutas desconocidas

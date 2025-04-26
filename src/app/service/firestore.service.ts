@@ -19,7 +19,7 @@ export class FirestoreService {
     private storage: AngularFireStorage,
     private firestoreUpgrade: Firestore,
     private fstorage: Storage
-  ) { }
+  ) {}
 
   // set colescciones
 
@@ -82,17 +82,34 @@ export class FirestoreService {
     return from(setDoc(profileDocRef, { viewData: false }, { merge: true }));
   }
 
-
   // Storage
 
   async uploadToFirebase(file: File): Promise<void> {
-    const fileAux = await this.convertToWebp(file)
+    const fileAux = await this.convertToWebp(file);
     console.log(fileAux);
     const storageRef = ref(this.fstorage, `clasesPiano/${fileAux.name}`); // Crear una referencia de almacenamiento
     await uploadBytes(storageRef, fileAux); // Subir el archivo
     const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
     const profileDocRef = doc(this.firestoreUpgrade, `${'pianoLessons'}/b9AE8HqgD846VKt6Agph`);
     from(setDoc(profileDocRef, { urlProfileImg: downloadUrl }, { merge: true }));
+  }
+
+  async uploadToFirebaseSecsion(file: File): Promise<string> {
+    const fileAux = await this.convertToWebp(file);
+    console.log(fileAux);
+    const storageRef = ref(this.fstorage, `clasesPianoSecciones/${fileAux.name}`); // Crear una referencia de almacenamiento
+    await uploadBytes(storageRef, fileAux); // Subir el archivo
+    const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
+    return downloadUrl;
+  }
+
+  async uploadToFirebaseStoy(file: File): Promise<string> {
+    const fileAux = await this.convertToWebp(file);
+    console.log(fileAux);
+    const storageRef = ref(this.fstorage, `experiencias/${fileAux.name}`); // Crear una referencia de almacenamiento
+    await uploadBytes(storageRef, fileAux); // Subir el archivo
+    const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
+    return downloadUrl;
   }
 
   async convertToWebp(file: File): Promise<File> {
@@ -119,7 +136,9 @@ export class FirestoreService {
           canvas.toBlob(
             (blob) => {
               if (blob) {
-                const webpFile = new File([blob], file.name.replace(/\.\w+$/, '.webp'), { type: 'image/webp' });
+                const webpFile = new File([blob], file.name.replace(/\.\w+$/, '.webp'), {
+                  type: 'image/webp',
+                });
                 resolve(webpFile);
               } else {
                 reject('No se pudo convertir la imagen a WebP');
@@ -137,5 +156,4 @@ export class FirestoreService {
       reader.readAsDataURL(file);
     });
   }
-
 }

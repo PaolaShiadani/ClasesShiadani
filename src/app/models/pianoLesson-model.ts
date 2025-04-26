@@ -1,5 +1,6 @@
 interface SyllabusTopic {
   topicName: string;
+  url: string;
   topicBody: {
     subtopicTilule: string;
     subtopicText: string;

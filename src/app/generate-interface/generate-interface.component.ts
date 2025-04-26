@@ -95,6 +95,7 @@ export class GenerateInterfaceComponent {
     });
 
     this.id = this.activatedRoute.snapshot.params['id'];
+    console.log(this.activatedRoute.snapshot.params['id']);
 
     this.getAboutMe();
     this.getPianoLessons();
@@ -191,12 +192,34 @@ export class GenerateInterfaceComponent {
     this.getSubtopics(topicIndex).push(subtopicGroup);
   }
 
+  removeSubtopic(topicIndex: number, subtopicIndex: number): void {
+    const subtopicsArray = this.getSubtopics(topicIndex);
+    if (subtopicIndex >= 0 && subtopicIndex < subtopicsArray.length) {
+      subtopicsArray.removeAt(subtopicIndex);
+    }
+  }
+
   addTopic(): void {
     const topicGroup = this.fb.group({
       topicName: ['', Validators.required],
+      url: ['', Validators.required],
       topicBody: this.fb.array([]),
     });
     this.syllabusControls.push(topicGroup);
+  }
+
+  removeTopic(index: number): void {
+    if (index >= 0 && index < this.syllabusControls.length) {
+      this.syllabusControls.removeAt(index);
+    }
+  }
+
+  public upFileSecsion(event: any, index: number) {
+    const file: File = event.target.files[0];
+    this.firestoreService.uploadToFirebaseSecsion(file).then((ress) => {
+      const syllabusArray: any = this.pianoClassForm.get('syllabus');
+      syllabusArray['controls'][index].controls['url'].setValue(ress);
+    });
   }
 
   getSubtopics(topicIndex: number): FormArray {
@@ -231,6 +254,7 @@ export class GenerateInterfaceComponent {
     data.syllabus.forEach((topic) => {
       const topicGroup = this.fb.group({
         topicName: [topic.topicName, Validators.required],
+        url: [topic.url],
         topicBody: this.fb.array(
           topic.topicBody.map((subtopic) =>
             this.fb.group({
@@ -289,6 +313,14 @@ export class GenerateInterfaceComponent {
         urlVideo: [''],
       })
     );
+  }
+
+  public upFileStory(event: any, index: number) {
+    const file: File = event.target.files[0];
+    const storiesControls: any = this.storiesControls.controls[index];
+    this.firestoreService.uploadToFirebaseStoy(file).then((ress) => {
+      storiesControls.controls['urlImg'].setValue(ress);
+    });
   }
 
   removeStory(index: number): void {

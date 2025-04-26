@@ -23,10 +23,10 @@ import { FirestoreService } from '../service/firestore.service';
     MatIconModule,
     ClasesPianoComponent,
     TestimoniosComponent,
-    PromocionalesComponent
+    PromocionalesComponent,
   ],
   templateUrl: './web-public.component.html',
-  styleUrl: './web-public.component.scss'
+  styleUrl: './web-public.component.scss',
 })
 export class WebPublicComponent implements OnInit, OnDestroy {
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
@@ -49,7 +49,7 @@ export class WebPublicComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private firestoreService: FirestoreService,
+    private firestoreService: FirestoreService
   ) {
     this.getAboutMe();
     this.getPianoLessons();
@@ -58,17 +58,19 @@ export class WebPublicComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (this.isPlatformBrowser()) {
+      this.mobile = this.isMobile();
+    }
+  }
+
+  ngAfterViewInit(): void {
     this.route.queryParams.subscribe((params) => {
       const tabIndex = params['tab'];
       if (tabIndex !== undefined) {
         this.tabGroup.selectedIndex = +tabIndex;
       }
     });
-    if (this.isPlatformBrowser()) {
-      this.mobile = this.isMobile();
-    }
   }
-
   ngOnDestroy(): void {
     this.subscribeArray.forEach((element) => {
       element.unsubscribe();
@@ -134,6 +136,4 @@ export class WebPublicComponent implements OnInit, OnDestroy {
       })
     );
   }
-
-
 }
