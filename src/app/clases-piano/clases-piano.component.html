@@ -5,12 +5,18 @@
         {{ pianoLessons?.titule }}
       </span></mat-card-content
     >
-    <img
-      class="h-[200px] md:h-[500px] object-cover p-2"
-      mat-card-image
-      [src]="pianoLessons?.urlProfileImg"
-      alt="Photo of a Shiba Inu"
-    />
+    @if (
+      pianoLessons?.urlProfileImg != null &&
+      pianoLessons?.urlProfileImg != '' &&
+      pianoLessons?.urlProfileImg != undefined
+    ) {
+      <img
+        class="h-[200px] md:h-[500px] object-cover p-2"
+        mat-card-image
+        [src]="pianoLessons?.urlProfileImg"
+        alt="Photo of a Shiba Inu"
+      />
+    }
     <mat-card-content>
       <p class="text-sm">
         {{ pianoLessons?.textBody ?? '' }}

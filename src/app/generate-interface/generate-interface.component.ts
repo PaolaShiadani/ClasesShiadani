@@ -210,7 +210,7 @@ export class GenerateInterfaceComponent {
 
   addSubtopic(topicIndex: number): void {
     const subtopicGroup = this.fb.group({
-      subtopicTilule: ['', Validators.required],
+      subtopicTilule: [''],
       subtopicText: ['', Validators.required],
     });
     this.getSubtopics(topicIndex).push(subtopicGroup);
@@ -302,7 +302,7 @@ export class GenerateInterfaceComponent {
 
   addSubtopicEvent(topicIndex: number): void {
     const subtopicGroup = this.fb.group({
-      subtopicTilule: ['', Validators.required],
+      subtopicTilule: [''],
       subtopicText: ['', Validators.required],
     });
     this.getSubtopicsEvent(topicIndex).push(subtopicGroup);

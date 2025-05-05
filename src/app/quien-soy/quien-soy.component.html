@@ -54,10 +54,13 @@
               </div>
               Online o Presencial
             </div>
-
-            <div class="w-full">
+            <div class="flex justify-center items-center gap-3">
+              <img class="!w-[24px]" src="../../assets/icons/whatsapp.svg" alt="" />
+              {{ profileData?.phoneView }}
+            </div>
+            <div class="m-auto">
               <a
-                class="!bg-none"
+                class="!bg-none m-auto"
                 extended
                 [href]="
                   'https://wa.me/' +
@@ -67,15 +70,12 @@
                 "
                 target="_blank"
               >
-                <div
-                  class="flex items-center flex-col gap-3 rounded-2xl w-[240px] h-auto bg-[#5f021a] px-4 py-2 mx-auto"
+                <button
+                  class="m-auto font-semibold !text-lg !rounded-lg !text-white !bg-[#5f021a] p-3 !h-[50px] !w-[230px]"
+                  mat-stroked-button
                 >
-                  <div>¡Agenda tu clase!</div>
-                  <div class="flex justify-center items-center gap-3">
-                    <img class="!w-[24px]" src="../../assets/icons/whatsapp.svg" alt="" />
-                    {{ profileData?.phoneView }}
-                  </div>
-                </div>
+                  ¡Agenda tu clase!
+                </button>
               </a>
             </div>
           </div>
