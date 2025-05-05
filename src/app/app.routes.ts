@@ -12,7 +12,7 @@ export const routes: Routes = [
   //   component: GenerateInterfaceComponent, // Componente principal
   // },
   // {
-  //   path: 'lqtJrGOMFjPUmgZjik7C',
+  //   path: '/lqtJrGOMFjPUmgZjik7C',
   //   component: GenerateInterfaceComponent, // Componente principal
   // },
   {

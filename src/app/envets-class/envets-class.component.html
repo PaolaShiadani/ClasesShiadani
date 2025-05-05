@@ -1,0 +1,50 @@
+<div class="container-general flex flex-col justify-center gap-4">
+  <mat-card appearance="outlined">
+    <mat-card-content
+      ><span class="text-lg">
+        {{ pianoLessons?.titule }}
+      </span></mat-card-content
+    >
+    <img
+      class="h-[200px] md:h-[500px] object-cover p-2"
+      mat-card-image
+      [src]="pianoLessons?.urlProfileImg"
+      alt="Photo of a Shiba Inu"
+    />
+    <mat-card-content>
+      <p class="text-sm">
+        {{ pianoLessons?.textBody ?? '' }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-accordion>
+    @for (syllabu of pianoLessons?.syllabus; track $index) {
+      <mat-expansion-panel class="!bg-[#5f021a]">
+        <mat-expansion-panel-header class="!bg-[#5f021a]">
+          <mat-panel-title class="!bg-[#5f021a]" class="text-base">
+            {{ syllabu.topicName }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <img
+          class="h-[320px] md:h-[500px] object-cover p-2 m-auto"
+          mat-card-image
+          [src]="syllabu?.url"
+        />
+
+        @for (topic of syllabu.topicBody; track $index) {
+          @if (topic.subtopicTilule.length) {
+            <p class="text-sm py-3 text-white">
+              {{ topic.subtopicTilule }}
+            </p>
+          }
+
+          <p class="text-sm text-white">
+            {{ topic.subtopicText }}
+          </p>
+        }
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+</div>

@@ -45,6 +45,7 @@ export class WebPublicComponent implements OnInit, OnDestroy {
   public pianoLessons: PianoClassProfile | null = null;
   public successStories: TestimoniesModule | null = null;
   public promotional: PromotionalModel | null = null;
+  public pianoEvents: PianoClassProfile | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +54,7 @@ export class WebPublicComponent implements OnInit, OnDestroy {
   ) {
     this.getAboutMe();
     this.getPianoLessons();
+    this.getEventLessons();
     this.getSuccessStories();
     this.getPromotional();
   }
@@ -117,6 +119,17 @@ export class WebPublicComponent implements OnInit, OnDestroy {
       })
     );
   }
+
+  private getEventLessons(): void {
+    this.subscribeArray.push(
+      this.firestoreService.getCollection('eventSecciones').subscribe({
+        next: (pianoEvents: PianoClassProfile[]) => {
+          this.pianoEvents = pianoEvents[0];
+        },
+      })
+    );
+  }
+
   private getSuccessStories(): void {
     this.subscribeArray.push(
       this.firestoreService.getCollection('successStories').subscribe({

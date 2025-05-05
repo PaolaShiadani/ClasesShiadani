@@ -16,6 +16,9 @@
       <mat-tab [label]="pianoLessons?.moduleName ?? ''">
         <app-clases-piano [pianoLessons]="pianoLessons"></app-clases-piano>
       </mat-tab>
+      <mat-tab [label]="pianoEvents?.moduleName ?? ''">
+        <app-clases-piano [pianoLessons]="pianoEvents"></app-clases-piano>
+      </mat-tab>
       <mat-tab [label]="successStories?.moduleName ?? ''">
         <app-testimonios [successStories]="successStories"></app-testimonios>
       </mat-tab>

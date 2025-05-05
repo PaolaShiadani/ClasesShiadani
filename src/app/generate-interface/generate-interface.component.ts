@@ -42,6 +42,7 @@ import { ActivatedRoute } from '@angular/router';
 export class GenerateInterfaceComponent {
   public profileForm: FormGroup;
   public pianoClassForm: FormGroup;
+  public eventForm: FormGroup;
   public testimoniesForm: FormGroup;
   public promotionalForm: FormGroup;
   public subscribeArray: Subscription[] = [];
@@ -49,6 +50,7 @@ export class GenerateInterfaceComponent {
   public id = '';
   @Input() profileData: ProfileData | null = null;
   @Input() pianoLessons: PianoClassProfile | null = null;
+  @Input() pianoEvents: PianoClassProfile | null = null;
   @Input() successStories: TestimoniesModule | null = null;
   @Input() promotional: PromotionalModel | null = null;
   @Input() upgradeData: UpgradeData | null = null;
@@ -70,6 +72,15 @@ export class GenerateInterfaceComponent {
       titule: ['', Validators.required],
       whatsappMessage: [''],
       urlPresentacion: [''],
+    });
+
+    this.eventForm = this.fb.group({
+      id: ['', Validators.required],
+      moduleName: ['', Validators.required],
+      urlProfileImg: ['', Validators.required],
+      titule: ['', Validators.required],
+      textBody: ['', Validators.required],
+      syllabus: this.fb.array([]),
     });
 
     this.pianoClassForm = this.fb.group({
@@ -99,6 +110,7 @@ export class GenerateInterfaceComponent {
 
     this.getAboutMe();
     this.getPianoLessons();
+    this.getEventLessons();
     this.getSuccessStories();
     this.getPromotional();
     this.getUpgradeData();
@@ -137,6 +149,18 @@ export class GenerateInterfaceComponent {
       })
     );
   }
+
+  private getEventLessons(): void {
+    this.subscribeArray.push(
+      this.firestoreService.getCollection('eventSecciones').subscribe({
+        next: (pianoEvents: PianoClassProfile[]) => {
+          this.pianoEvents = pianoEvents[0];
+          this.fillFormWithLessonDataEvent(this.pianoEvents);
+        },
+      })
+    );
+  }
+
   private getSuccessStories(): void {
     this.subscribeArray.push(
       this.firestoreService.getCollection('successStories').subscribe({
@@ -272,6 +296,98 @@ export class GenerateInterfaceComponent {
   public upFile(event: any) {
     const file: File = event.target.files[0];
     this.firestoreService.uploadToFirebase(file).then((ress) => {});
+  }
+
+  // Eventos
+
+  addSubtopicEvent(topicIndex: number): void {
+    const subtopicGroup = this.fb.group({
+      subtopicTilule: ['', Validators.required],
+      subtopicText: ['', Validators.required],
+    });
+    this.getSubtopicsEvent(topicIndex).push(subtopicGroup);
+  }
+
+  removeSubtopicEvent(topicIndex: number, subtopicIndex: number): void {
+    const subtopicsArray = this.getSubtopicsEvent(topicIndex);
+    if (subtopicIndex >= 0 && subtopicIndex < subtopicsArray.length) {
+      subtopicsArray.removeAt(subtopicIndex);
+    }
+  }
+
+  addTopicEvent(): void {
+    const topicGroup = this.fb.group({
+      topicName: ['', Validators.required],
+      url: ['', Validators.required],
+      topicBody: this.fb.array([]),
+    });
+    this.syllabusControlsEvent.push(topicGroup);
+  }
+
+  removeTopicEvent(index: number): void {
+    if (index >= 0 && index < this.syllabusControlsEvent.length) {
+      this.syllabusControlsEvent.removeAt(index);
+    }
+  }
+
+  public upFileSecsionEvent(event: any, index: number) {
+    const file: File = event.target.files[0];
+    this.firestoreService.uploadToFirebaseSecsionEvent(file).then((ress) => {
+      const syllabusArray: any = this.eventForm.get('syllabus');
+      syllabusArray['controls'][index].controls['url'].setValue(ress);
+    });
+  }
+
+  getSubtopicsEvent(topicIndex: number): FormArray {
+    return this.syllabusControls.at(topicIndex).get('topicBody') as FormArray;
+  }
+
+  get syllabusControlsEvent(): FormArray {
+    return this.eventForm.get('syllabus') as FormArray;
+  }
+
+  updatePianoClassProfileEvent(): void {
+    const formValue: PianoClassProfile = this.eventForm.value;
+    this.firestoreService.updatePianoClassProfileEvent(formValue).subscribe((ress) => {
+      location.reload();
+    });
+  }
+
+  private fillFormWithLessonDataEvent(data: PianoClassProfile): void {
+    // Llenar los campos principales
+    this.eventForm.patchValue({
+      id: data.id,
+      moduleName: data.moduleName,
+      urlProfileImg: data.urlProfileImg,
+      titule: data.titule,
+      textBody: data.textBody,
+    });
+
+    // Llenar el FormArray 'syllabus'
+    const eventFotos = this.eventForm.get('syllabus') as FormArray;
+    eventFotos.clear(); // Limpiar el FormArray antes de llenarlo
+
+    data.syllabus.forEach((topic) => {
+      const topicGroup = this.fb.group({
+        topicName: [topic.topicName, Validators.required],
+        url: [topic.url],
+        topicBody: this.fb.array(
+          topic.topicBody.map((subtopic) =>
+            this.fb.group({
+              subtopicTilule: [subtopic.subtopicTilule],
+              subtopicText: [subtopic.subtopicText, Validators.required],
+            })
+          )
+        ),
+      });
+
+      eventFotos.push(topicGroup);
+    });
+  }
+
+  public upFileEvent(event: any) {
+    const file: File = event.target.files[0];
+    this.firestoreService.uploadToFirebaseEvent(file).then((ress) => {});
   }
 
   // Experiencias
