@@ -1,0 +1,117 @@
+<div class="container-general flex flex-col justify-center gap-4">
+  <mat-card appearance="outlined">
+    <mat-card-content
+      ><span class="text-lg">
+        {{ eventProfile?.titule }}
+      </span></mat-card-content
+    >
+    @if (eventProfile && eventProfile.urlProfileImg) {
+      <img
+        class="h-[200px] md:h-[500px] object-cover p-2"
+        mat-card-image
+        [src]="eventProfile.urlProfileImg"
+        alt="Photo of a Shiba Inu"
+      />
+    }
+    <mat-card-content>
+      <p class="text-sm" style="white-space: pre-line">
+        {{ eventProfile?.textBody ?? '' }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+  @if (eventProfile && eventProfile.urlMap) {
+    <iframe
+      class="px-0 pb-4 md:px-4 md:h-[300px] h-[200px]"
+      [src]="this.eventProfile.urlMap"
+      width="100%"
+      style="border: 0"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  }
+
+  <mat-accordion style="white-space: pre-line">
+    @for (syllabuAux of eventProfile?.syllabus; track $index) {
+      <mat-expansion-panel class="!bg-[#5f021a]">
+        <mat-expansion-panel-header class="!bg-[#5f021a]">
+          <mat-panel-title class="!bg-[#5f021a]" class="text-base">
+            {{ syllabuAux.topicName }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        @if (syllabuAux.url) {
+          <img
+            class="h-[320px] md:h-[500px] object-cover p-2 m-auto"
+            mat-card-image
+            [src]="syllabuAux?.url"
+          />
+        }
+
+        @for (topic of syllabuAux.topicBody; track $index) {
+          @if (topic.subtopicTilule.length) {
+            <p class="text-sm py-3 text-white">
+              {{ topic.subtopicTilule }}
+            </p>
+          }
+
+          <p class="text-sm text-white">
+            {{ topic.subtopicText }}
+          </p>
+        }
+
+        @if (syllabuAux && syllabuAux.urlMap) {
+          <iframe
+            class="px-0 pb-4 md:px-4 md:h-[300px] h-[200px] w-full pt-6"
+            [src]="syllabuAux.urlMap"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        }
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+
+  <div
+    class="social-media gap-1 flex flex-col px-4 items-center pt-2 border-t-2 border-t-[#5f021a]"
+  >
+    <div
+      class="items-center py-2.5 rounded-lg w-full flex justify-center flex-wrap gap-4"
+    >
+      <a
+        class="!bg-none"
+        extended
+        [href]="
+          'https://wa.me/' + profileData?.phone + '?text=' + profileData?.whatsappMessage
+        "
+        target="_blank"
+      >
+        <img class="!w-[24px]" src="../../assets/icons/whatsapp.svg" alt="" />
+      </a>
+      <a class="!bg-none" extended [href]="profileData?.urlSelection" target="_blank">
+        <img class="!w-[29px]" src="../../assets/icons/educación.svg" alt="" />
+      </a>
+
+      <a class="!bg-none" [href]="profileData?.urlInstamgram" target="_blank" extended>
+        <img class="!w-[22px]" src="../../assets/icons/instragram.svg" alt="" />
+      </a>
+
+      <a class="!bg-none" [href]="profileData?.urlYoutube" target="_blank" extended>
+        <img class="!w-[26px]" src="../../assets/icons/youtube.svg" alt="" />
+      </a>
+
+      <a class="!bg-none" href="mailto:paola.shiadani.pianista@gmail.com" target="_blank">
+        <img class="!w-[24.5px]" src="../../assets/icons/gmail.svg" alt="Gmail Icon" />
+      </a>
+
+      <a class="!bg-none" [href]="profileData?.urlTokTok" target="_blank" extended>
+        <img class="!w-[24px]" src="../../assets/icons/tiktok.svg" alt="" />
+      </a>
+
+      <a class="!bg-none" [href]="profileData?.urlFacebook" target="_blank" extended>
+        <img class="!w-[24px]" src="../../assets/icons/facebook.svg" alt="" />
+      </a>
+    </div>
+  </div>
+</div>

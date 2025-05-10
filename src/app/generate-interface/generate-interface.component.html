@@ -4,9 +4,52 @@
       <mat-tab label="Crear Nuevo Perfil">
         <div [formGroup]="profileForm">
           <div class="grid gap-4 md:grid-cols-2">
-            <mat-form-field class="w-full">
+            <mat-form-field class="w-full col-span-full">
               <mat-label>Nombre del Módulo</mat-label>
               <input matInput formControlName="ModulName" />
+            </mat-form-field>
+
+            <mat-form-field class="w-full col-span-full">
+              <mat-label>Título</mat-label>
+              <input matInput formControlName="titule" />
+            </mat-form-field>
+
+            <div class="flex gap-4 items-center pb-8 col-span-full">
+              <label
+                for="imageInput"
+                class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              >
+                Imagen Perfil
+                <input
+                  style="display: none"
+                  placeholder="Cambiar imagen"
+                  type="file"
+                  id="imageInput"
+                  accept="image/*"
+                  (change)="upFile($event)"
+                />
+              </label>
+            </div>
+
+            <!-- Campo para la URL de la imagen -->
+            <mat-form-field class="w-full col-span-full">
+              <mat-label>URL de la imagen de perfil</mat-label>
+              <input
+                matInput
+                formControlName="urlProfileImg"
+                placeholder="URL de la imagen"
+              />
+            </mat-form-field>
+
+            <!-- Campo para el cuerpo del texto -->
+            <mat-form-field class="w-full col-span-full">
+              <mat-label>Descripción</mat-label>
+              <textarea
+                matInput
+                formControlName="textBody"
+                placeholder="Descripción del módulo"
+                style="min-height: 300px"
+              ></textarea>
             </mat-form-field>
 
             <mat-form-field class="w-full">
@@ -35,31 +78,17 @@
             </mat-form-field>
 
             <mat-form-field class="w-full">
-              <mat-label>Teléfono Visible</mat-label>
-              <input matInput formControlName="phoneView" />
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
               <mat-label>URL de YouTube</mat-label>
               <input matInput formControlName="urlYoutube" />
             </mat-form-field>
 
-            <mat-form-field class="w-full">
-              <mat-label>Título</mat-label>
-              <input matInput formControlName="titule" />
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-              <mat-label>URL de Presentación</mat-label>
-              <input matInput formControlName="urlPresentacion" />
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
+            <mat-form-field class="w-full col-span-full">
               <mat-label>Mensaje de WhatsApp</mat-label>
               <textarea
                 matInput
                 formControlName="whatsappMessage"
                 placeholder="Mensaje de WhatsApp"
+                style="min-height: 300px"
               ></textarea>
             </mat-form-field>
           </div>
@@ -85,6 +114,7 @@
           </div>
         </div>
       </mat-tab>
+
       <mat-tab label="Clases de piano">
         <div [formGroup]="pianoClassForm">
           <!-- Campo para el nombre del módulo -->
@@ -97,54 +127,26 @@
             />
           </mat-form-field>
 
-          <div class="flex gap-4 items-center pb-8">
-            <label
-              for="imageInput"
-              class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-            >
-              Imagen Perfil
-              <input
-                style="display: none"
-                placeholder="Cambiar imagen"
-                type="file"
-                id="imageInput"
-                accept="image/*"
-                (change)="upFile($event)"
-              />
-            </label>
-          </div>
-
-          <!-- Campo para la URL de la imagen -->
-          <mat-form-field class="w-full">
-            <mat-label>URL de la imagen de perfil</mat-label>
-            <input
-              matInput
-              formControlName="urlProfileImg"
-              placeholder="URL de la imagen"
-            />
-          </mat-form-field>
-
           <!-- Campo para el título -->
           <mat-form-field class="w-full">
             <mat-label>Título</mat-label>
             <input matInput formControlName="titule" placeholder="Título del módulo" />
           </mat-form-field>
 
-          <!-- Campo para el cuerpo del texto -->
           <mat-form-field class="w-full">
-            <mat-label>Descripción</mat-label>
-            <textarea
-              matInput
-              formControlName="textBody"
-              placeholder="Descripción del módulo"
-            ></textarea>
+            <mat-label>Teléfono Visible</mat-label>
+            <input matInput formControlName="phoneView" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>URL de Presentación</mat-label>
+            <input matInput formControlName="urlPresentacion" />
           </mat-form-field>
 
           <!-- Campo para el temario -->
           <div formArrayName="syllabus">
             @for (topic of syllabusControls.controls; track topic; let i = $index) {
               Tema
-
               <div [formGroupName]="i" class="mb-4 border-2 border-red-900 p-2">
                 <mat-form-field class="w-full">
                   <mat-label>Tema</mat-label>
@@ -201,6 +203,7 @@
                           matInput
                           formControlName="subtopicText"
                           placeholder="Texto del subtema"
+                          style="min-height: 300px"
                         ></textarea>
                       </mat-form-field>
                     </div>
@@ -270,6 +273,209 @@
           </div>
         </div>
       </mat-tab>
+
+      <mat-tab label="Eventos">
+        <div [formGroup]="eventForm">
+          <!-- Campo para el nombre del módulo -->
+          <mat-form-field class="w-full">
+            <mat-label>Nombre del módulo</mat-label>
+            <input
+              matInput
+              formControlName="moduleName"
+              placeholder="Nombre del módulo"
+            />
+          </mat-form-field>
+
+          <div class="flex gap-4 items-center pb-8">
+            <label
+              for="imageInput"
+              class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              Imagen Perfil
+              <input
+                style="display: none"
+                placeholder="Cambiar imagen"
+                type="file"
+                id="imageInput"
+                accept="image/*"
+                (change)="upFileEvent($event)"
+              />
+            </label>
+          </div>
+
+          <!-- Campo para la URL de la imagen -->
+          <mat-form-field class="w-full">
+            <mat-label>URL de la imagen de perfil</mat-label>
+            <input
+              matInput
+              formControlName="urlProfileImg"
+              placeholder="URL de la imagen"
+            />
+          </mat-form-field>
+
+          <!-- Campo para el título -->
+          <mat-form-field class="w-full">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="titule" placeholder="Título del módulo" />
+          </mat-form-field>
+
+          <!-- Campo para el cuerpo del texto -->
+          <mat-form-field class="w-full">
+            <mat-label>Descripción</mat-label>
+            <textarea
+              matInput
+              formControlName="textBody"
+              placeholder="Descripción del módulo"
+              style="min-height: 300px"
+            ></textarea>
+          </mat-form-field>
+
+          <!-- Campo para el título -->
+          <mat-form-field class="w-full">
+            <mat-label>Ubicación</mat-label>
+            <input matInput formControlName="urlMap" placeholder="Ubicación del evento" />
+          </mat-form-field>
+
+          <!-- Campo para el temario -->
+          <div formArrayName="syllabus">
+            @for (topic of syllabusControlsEvent.controls; track topic; let i = $index) {
+              Tema
+              <div [formGroupName]="i" class="mb-4 border-2 border-red-900 p-2">
+                <mat-form-field class="w-full">
+                  <mat-label>Tema</mat-label>
+                  <input
+                    matInput
+                    formControlName="topicName"
+                    placeholder="Nombre del tema"
+                  />
+                </mat-form-field>
+
+                <div class="flex gap-4 items-center pb-8">
+                  <label
+                    [for]="'imageInput' + i"
+                    class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  >
+                    Actualiza imagen Secesión
+                    <input
+                      style="display: none"
+                      placeholder="Cambiar imagen"
+                      type="file"
+                      [id]="'imageInput' + i"
+                      accept="image/*"
+                      (change)="upFileSecsionEvent($event, i)"
+                    />
+                  </label>
+                </div>
+
+                <!-- Campo para la URL de la imagen -->
+                <mat-form-field class="w-full">
+                  <mat-label>URL img secesión</mat-label>
+                  <input matInput formControlName="url" placeholder="URL de la imagen" />
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                  <mat-label>Ubicación</mat-label>
+                  <input
+                    matInput
+                    formControlName="urlMap"
+                    placeholder="Ubicación del evento"
+                  />
+                </mat-form-field>
+
+                <div formArrayName="topicBody" class="ml-4">
+                  @for (
+                    subtopic of getSubtopicsEvent(i).controls;
+                    track subtopic;
+                    let j = $index
+                  ) {
+                    Subtema
+                    <div class="w-full h-[2px] bg-red-900 my-2"></div>
+                    <div [formGroupName]="j">
+                      <mat-form-field class="w-full">
+                        <mat-label>Subtítulo</mat-label>
+                        <input
+                          matInput
+                          formControlName="subtopicTilule"
+                          placeholder="Título del subtema"
+                        />
+                      </mat-form-field>
+                      <mat-form-field class="w-full">
+                        <mat-label>Texto del Subsecesión</mat-label>
+                        <textarea
+                          matInput
+                          formControlName="subtopicText"
+                          placeholder="Texto del subtema"
+                          style="min-height: 300px"
+                        ></textarea>
+                      </mat-form-field>
+                    </div>
+                    <button
+                      class="!bg-red-600 m-3"
+                      mat-raised-button
+                      color="accent"
+                      type="button"
+                      (click)="removeSubtopicEvent(i, j)"
+                    >
+                      Eliminar Subsecesión
+                    </button>
+                    <div class="w-full h-[2px] bg-red-900 my-2"></div>
+                  }
+                </div>
+                <button
+                  class="bg-amber-300 mt-3"
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="addSubtopicEvent(i)"
+                >
+                  Agregar Subsecesión
+                </button>
+              </div>
+              <button
+                class="!bg-red-600 mb-4"
+                mat-raised-button
+                color="accent"
+                type="button"
+                (click)="removeTopicEvent(i)"
+              >
+                Eliminar Secesión
+              </button>
+            }
+          </div>
+          <button
+            class="bg-amber-300 mt-3"
+            mat-raised-button
+            color="accent"
+            type="button"
+            (click)="addTopicEvent()"
+          >
+            Agregar Secesión
+          </button>
+
+          <!-- Botón de envío -->
+
+          <div class="flex gap-6 justify-end mt-6">
+            <button
+              class="bg-amber-300"
+              mat-raised-button
+              color="primary"
+              (click)="updatePianoClassProfileEvent()"
+              [disabled]="pianoClassForm.invalid"
+            >
+              Guardar
+            </button>
+
+            <button
+              mat-raised-button
+              class="!bg-red-600 text-white"
+              (click)="this.firestoreService.upgradeDataPermis()"
+            >
+              Ocultar Edicion
+            </button>
+          </div>
+        </div>
+      </mat-tab>
+
       <mat-tab label="Experiencias">
         <div [formGroup]="testimoniesForm">
           <mat-form-field class="w-full">
@@ -307,6 +513,7 @@
                     matInput
                     formControlName="textBody"
                     placeholder="Texto de la historia"
+                    style="min-height: 300px"
                   ></textarea>
                 </mat-form-field>
 
@@ -384,6 +591,7 @@
           </div>
         </div>
       </mat-tab>
+
       <mat-tab label="Videos">
         <div [formGroup]="promotionalForm">
           <mat-form-field class="w-full">

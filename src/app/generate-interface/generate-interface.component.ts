@@ -23,6 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { EventProfile } from '../models/event-model';
 
 @Component({
   selector: 'app-generate-interface',
@@ -42,6 +43,7 @@ import { ActivatedRoute } from '@angular/router';
 export class GenerateInterfaceComponent {
   public profileForm: FormGroup;
   public pianoClassForm: FormGroup;
+  public eventForm: FormGroup;
   public testimoniesForm: FormGroup;
   public promotionalForm: FormGroup;
   public subscribeArray: Subscription[] = [];
@@ -49,6 +51,7 @@ export class GenerateInterfaceComponent {
   public id = '';
   @Input() profileData: ProfileData | null = null;
   @Input() pianoLessons: PianoClassProfile | null = null;
+  @Input() pianoEvents: EventProfile | null = null;
   @Input() successStories: TestimoniesModule | null = null;
   @Input() promotional: PromotionalModel | null = null;
   @Input() upgradeData: UpgradeData | null = null;
@@ -65,19 +68,29 @@ export class GenerateInterfaceComponent {
       urlInstamgram: [''],
       urlTokTok: [''],
       phone: [''],
-      phoneView: [''],
       urlYoutube: [''],
       titule: ['', Validators.required],
       whatsappMessage: [''],
-      urlPresentacion: [''],
+      urlProfileImg: ['', Validators.required],
+      textBody: ['', Validators.required],
     });
 
     this.pianoClassForm = this.fb.group({
       id: ['', Validators.required],
       moduleName: ['', Validators.required],
+      phoneView: ['', Validators.required],
+      urlPresentacion: ['', Validators.required],
+      titule: ['', Validators.required],
+      syllabus: this.fb.array([]),
+    });
+
+    this.eventForm = this.fb.group({
+      id: ['', Validators.required],
+      moduleName: ['', Validators.required],
       urlProfileImg: ['', Validators.required],
       titule: ['', Validators.required],
       textBody: ['', Validators.required],
+      urlMap: [''],
       syllabus: this.fb.array([]),
     });
 
@@ -95,10 +108,9 @@ export class GenerateInterfaceComponent {
     });
 
     this.id = this.activatedRoute.snapshot.params['id'];
-    console.log(this.activatedRoute.snapshot.params['id']);
-
     this.getAboutMe();
     this.getPianoLessons();
+    this.getEventLessons();
     this.getSuccessStories();
     this.getPromotional();
     this.getUpgradeData();
@@ -109,7 +121,6 @@ export class GenerateInterfaceComponent {
       this.firestoreService.getCollection('aboutMe').subscribe({
         next: (aboutMe: ProfileData[]) => {
           this.profileData = aboutMe[0];
-
           this.profileData;
           this.profileForm.controls['ModulName'].setValue(this.profileData?.ModulName);
           this.profileForm.controls['urlFacebook'].setValue(this.profileData?.urlFacebook);
@@ -117,11 +128,11 @@ export class GenerateInterfaceComponent {
           this.profileForm.controls['urlInstamgram'].setValue(this.profileData?.urlInstamgram);
           this.profileForm.controls['urlTokTok'].setValue(this.profileData?.urlTokTok);
           this.profileForm.controls['phone'].setValue(this.profileData?.phone);
-          this.profileForm.controls['phoneView'].setValue(this.profileData?.phoneView);
           this.profileForm.controls['urlYoutube'].setValue(this.profileData?.urlYoutube);
           this.profileForm.controls['titule'].setValue(this.profileData?.titule);
           this.profileForm.controls['whatsappMessage'].setValue(this.profileData?.whatsappMessage);
-          this.profileForm.controls['urlPresentacion'].setValue(this.profileData?.urlPresentacion);
+          this.profileForm.controls['urlProfileImg'].setValue(this.profileData?.urlProfileImg);
+          this.profileForm.controls['textBody'].setValue(this.profileData?.textBody);
         },
       })
     );
@@ -132,11 +143,25 @@ export class GenerateInterfaceComponent {
       this.firestoreService.getCollection('pianoLessons').subscribe({
         next: (pianoLessons: PianoClassProfile[]) => {
           this.pianoLessons = pianoLessons[0];
+          this.pianoClassForm.controls['phoneView'].setValue(this.pianoLessons?.phoneView);
+          this.pianoClassForm.controls['urlPresentacion'].setValue(this.pianoLessons?.urlPresentacion);
           this.fillFormWithLessonData(this.pianoLessons);
         },
       })
     );
   }
+
+  private getEventLessons(): void {
+    this.subscribeArray.push(
+      this.firestoreService.getCollection('eventSecciones').subscribe({
+        next: (pianoEvents: EventProfile[]) => {
+          this.pianoEvents = pianoEvents[0];
+          this.fillFormWithLessonDataEvent(this.pianoEvents);
+        },
+      })
+    );
+  }
+
   private getSuccessStories(): void {
     this.subscribeArray.push(
       this.firestoreService.getCollection('successStories').subscribe({
@@ -182,11 +207,18 @@ export class GenerateInterfaceComponent {
     }
   }
 
+  public upFile(event: any) {
+    const file: File = event.target.files[0];
+    this.firestoreService.uploadToFirebase(file).then((ress) => {
+      this.profileForm.controls['urlProfileImg'].setValue(ress);
+    });
+  }
+
   // Clasews piano
 
   addSubtopic(topicIndex: number): void {
     const subtopicGroup = this.fb.group({
-      subtopicTilule: ['', Validators.required],
+      subtopicTilule: [''],
       subtopicText: ['', Validators.required],
     });
     this.getSubtopics(topicIndex).push(subtopicGroup);
@@ -242,9 +274,9 @@ export class GenerateInterfaceComponent {
     this.pianoClassForm.patchValue({
       id: data.id,
       moduleName: data.moduleName,
-      urlProfileImg: data.urlProfileImg,
+      // urlProfileImg: data.urlProfileImg,
+      // textBody: data.textBody,
       titule: data.titule,
-      textBody: data.textBody,
     });
 
     // Llenar el FormArray 'syllabus'
@@ -269,9 +301,101 @@ export class GenerateInterfaceComponent {
     });
   }
 
-  public upFile(event: any) {
+  // Eventos
+
+  addSubtopicEvent(topicIndex: number): void {
+    const subtopicGroup = this.fb.group({
+      subtopicTilule: [''],
+      subtopicText: ['', Validators.required],
+    });
+    this.getSubtopicsEvent(topicIndex).push(subtopicGroup);
+  }
+
+  removeSubtopicEvent(topicIndex: number, subtopicIndex: number): void {
+    const subtopicsArray = this.getSubtopicsEvent(topicIndex);
+    if (subtopicIndex >= 0 && subtopicIndex < subtopicsArray.length) {
+      subtopicsArray.removeAt(subtopicIndex);
+    }
+  }
+
+  addTopicEvent(): void {
+    const topicGroup = this.fb.group({
+      topicName: ['', Validators.required],
+      url: ['', Validators.required],
+      urlMap: ['', Validators.required],
+      topicBody: this.fb.array([]),
+    });
+    this.syllabusControlsEvent.push(topicGroup);
+  }
+
+  removeTopicEvent(index: number): void {
+    if (index >= 0 && index < this.syllabusControlsEvent.length) {
+      this.syllabusControlsEvent.removeAt(index);
+    }
+  }
+
+  public upFileSecsionEvent(event: any, index: number) {
     const file: File = event.target.files[0];
-    this.firestoreService.uploadToFirebase(file).then((ress) => {});
+    this.firestoreService.uploadToFirebaseSecsionEvent(file).then((ress) => {
+      const syllabusArray: any = this.eventForm.get('syllabus');
+      syllabusArray['controls'][index].controls['url'].setValue(ress);
+    });
+  }
+
+  getSubtopicsEvent(topicIndex: number): FormArray {
+    return this.syllabusControlsEvent.at(topicIndex).get('topicBody') as FormArray;
+  }
+
+  get syllabusControlsEvent(): FormArray {
+    return this.eventForm.get('syllabus') as FormArray;
+  }
+
+  updatePianoClassProfileEvent(): void {
+    const formValue: PianoClassProfile = this.eventForm.value;
+    this.firestoreService.updatePianoClassProfileEvent(formValue).subscribe((ress) => {
+      location.reload();
+    });
+  }
+
+  private fillFormWithLessonDataEvent(data: EventProfile): void {
+    // Llenar los campos principales
+    this.eventForm.patchValue({
+      id: data.id,
+      moduleName: data.moduleName,
+      titule: data.titule,
+      urlProfileImg: data.urlProfileImg,
+      textBody: data.textBody,
+      urlMap: data.urlMap,
+    });
+
+    // Llenar el FormArray 'syllabus'
+    const eventFotos = this.eventForm.get('syllabus') as FormArray;
+    eventFotos.clear(); // Limpiar el FormArray antes de llenarlo
+
+    data.syllabus.forEach((topic) => {
+      const topicGroup = this.fb.group({
+        topicName: [topic.topicName, Validators.required],
+        url: [topic.url],
+        urlMap: [topic.urlMap],
+        topicBody: this.fb.array(
+          topic.topicBody.map((subtopic) =>
+            this.fb.group({
+              subtopicTilule: [subtopic.subtopicTilule],
+              subtopicText: [subtopic.subtopicText, Validators.required],
+            })
+          )
+        ),
+      });
+
+      eventFotos.push(topicGroup);
+    });
+  }
+
+  public upFileEvent(event: any) {
+    const file: File = event.target.files[0];
+    this.firestoreService.uploadToFirebaseEvent(file).then((ress) => {
+      this.eventForm.controls['urlProfileImg'].setValue(ress);
+    });
   }
 
   // Experiencias

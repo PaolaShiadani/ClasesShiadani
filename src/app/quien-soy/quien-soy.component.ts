@@ -19,28 +19,15 @@ export class QuienSoyComponent {
       this.mobile = this.isMobile();
     }
   }
-  public load = false;
+  public load = true;
   public mobile = false;
   public width = 640;
   public height = 360;
   public sizeH = 0;
-  public resourceUrl: SafeResourceUrl | null = null;
+
   @Input() profileData: ProfileData | null = null;
 
-  constructor(public sanitizer: DomSanitizer) {
-    if (this.isPlatformBrowser()) {
-      this.mobile = this.isMobile();
-      this.load = true;
-    }
-  }
-
-  ngOnChanges(): void {
-    if (this.profileData) {
-      this.resourceUrl = this.getSanitizer(this.profileData.urlPresentacion + '?autoplay=1&mute=1&cc_load_policy=0');
-    }
-  }
-
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public isMobile(): boolean {
     if (this.isPlatformBrowser()) {
@@ -49,11 +36,6 @@ export class QuienSoyComponent {
       return sizeW <= 742 || this.sizeH <= 450;
     }
     return false;
-  }
-
-  public getSanitizer(url: string): SafeResourceUrl {
-    const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    return sanitizedUrl;
   }
 
   private isPlatformBrowser(): boolean {

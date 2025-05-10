@@ -6,9 +6,9 @@ export interface ProfileData {
   urlInstamgram: string;
   urlTokTok: string;
   phone: string;
-  phoneView: string;
   urlYoutube: string;
   titule: string;
   whatsappMessage: string;
-  urlPresentacion: string;
+  textBody: string;
+  urlProfileImg: string;
 }

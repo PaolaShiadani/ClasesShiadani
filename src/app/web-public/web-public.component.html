@@ -5,7 +5,7 @@
         <h1 class="relative z-10 text-white lg:text-4xl md:text-lg text-3lg">
           Clases de Piano con Paola Shiadani
         </h1>
-        <p class="text-end text-xs">vB-1.2.6</p>
+        <p class="text-end text-xs">vB-1.3.0</p>
       </div>
     </div>
 
@@ -14,7 +14,18 @@
         <app-quien-soy [profileData]="profileData"></app-quien-soy>
       </mat-tab>
       <mat-tab [label]="pianoLessons?.moduleName ?? ''">
-        <app-clases-piano [pianoLessons]="pianoLessons"></app-clases-piano>
+        <app-clases-piano
+          [pianoLessons]="pianoLessons"
+          [profileData]="profileData"
+        ></app-clases-piano>
+      </mat-tab>
+      <mat-tab [label]="pianoEvents?.moduleName ?? ''">
+        @if (pianoEvents) {
+          <app-events
+            [eventProfile]="pianoEvents"
+            [profileData]="profileData"
+          ></app-events>
+        }
       </mat-tab>
       <mat-tab [label]="successStories?.moduleName ?? ''">
         <app-testimonios [successStories]="successStories"></app-testimonios>
@@ -22,10 +33,6 @@
       <mat-tab [label]="promotional?.moduleName ?? ''">
         <app-promocionales [promotional]="promotional"></app-promocionales>
       </mat-tab>
-      <!-- <mat-tab [label]="'Crear Interfaces'">
-        <app-generate-interface [profileData]="profileData" [pianoLessons]="pianoLessons"
-          [successStories]="successStories" [promotional]="promotional"></app-generate-interface>
-      </mat-tab> -->
     </mat-tab-group>
   </div>
 </div>

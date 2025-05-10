@@ -1,166 +1,74 @@
 <div>
-  @if (resourceUrl && load) {
-    <div class="container-general flex flex-col justify-center gap-4 py-4">
-      <div class="video-general sticky md:relative top-0 z-10">
-        @if (mobile) {
-          <div class="video-container w-full">
-            <iframe
-              [src]="resourceUrl"
-              frameborder="0"
-              allow="autoplay; encrypted-media"
-              allowfullscreen
-            >
-            </iframe>
-          </div>
-        } @else {
-          <div>
-            <iframe
-              [width]="width"
-              [height]="height"
-              [src]="resourceUrl"
-              frameborder="0"
-              allow="autoplay; encrypted-media"
-              allowfullscreen
-            >
-            </iframe>
-          </div>
-        }
+  <div class="container-general flex flex-col justify-center gap-4 py-4">
+    <mat-card-content class="">
+      <span class="text-lg text-center items-center flex justify-center">
+        {{ profileData?.titule }}
+      </span>
+    </mat-card-content>
+
+    @if (profileData && profileData.urlProfileImg) {
+      <img
+        class="h-[200px] md:h-[500px] object-cover p-2"
+        mat-card-image
+        [src]="profileData.urlProfileImg"
+        alt="Photo of a Shiba Inu"
+      />
+    }
+
+    <mat-card-content>
+      <p class="text-sm" style="white-space: pre-line">
+        {{ profileData?.textBody ?? '' }}
+      </p>
+    </mat-card-content>
+
+    <div
+      class="social-media gap-1 flex flex-col items-center pt-2 border-t-2 border-t-[#5f021a] mx-4"
+    >
+      <div>Contáctame</div>
+      <div
+        class="items-center py-2.5 rounded-lg w-full flex justify-center flex-wrap gap-4"
+      >
+        <a
+          class="!bg-none"
+          extended
+          [href]="
+            'https://wa.me/' +
+            profileData?.phone +
+            '?text=' +
+            profileData?.whatsappMessage
+          "
+          target="_blank"
+        >
+          <img class="!w-[24px]" src="../../assets/icons/whatsapp.svg" alt="" />
+        </a>
+        <a class="!bg-none" extended [href]="profileData?.urlSelection" target="_blank">
+          <img class="!w-[29px]" src="../../assets/icons/educación.svg" alt="" />
+        </a>
+
+        <a class="!bg-none" [href]="profileData?.urlInstamgram" target="_blank" extended>
+          <img class="!w-[22px]" src="../../assets/icons/instragram.svg" alt="" />
+        </a>
+
+        <a class="!bg-none" [href]="profileData?.urlYoutube" target="_blank" extended>
+          <img class="!w-[26px]" src="../../assets/icons/youtube.svg" alt="" />
+        </a>
+
+        <a
+          class="!bg-none"
+          href="mailto:paola.shiadani.pianista@gmail.com"
+          target="_blank"
+        >
+          <img class="!w-[24.5px]" src="../../assets/icons/gmail.svg" alt="Gmail Icon" />
+        </a>
+
+        <a class="!bg-none" [href]="profileData?.urlTokTok" target="_blank" extended>
+          <img class="!w-[24px]" src="../../assets/icons/tiktok.svg" alt="" />
+        </a>
+
+        <a class="!bg-none" [href]="profileData?.urlFacebook" target="_blank" extended>
+          <img class="!w-[24px]" src="../../assets/icons/facebook.svg" alt="" />
+        </a>
       </div>
-
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <span class="text-lg text-center items-center flex justify-center">
-            {{ profileData?.titule }}
-          </span>
-        </mat-card-content>
-        <div class="px-4 sm:px-8 pt-4 sm:pt-8 flex flex-col justify-between gap-4">
-          <div class="flex flex-col justify-center gap-4 items-start w-[80%] m-auto">
-            <div class="gap-3 flex items-center">
-              <div class="w-[26px]">
-                <mat-icon> check_circle </mat-icon>
-              </div>
-              Clases de piano personalizadas.
-            </div>
-
-            <div class="gap-3 flex items-center">
-              <div class="w-[26px]">
-                <mat-icon> check_circle </mat-icon>
-              </div>
-              Todas las edades y niveles.
-            </div>
-            <div class="gap-3 flex items-center">
-              <div class="w-[26px]">
-                <mat-icon> check_circle </mat-icon>
-              </div>
-              Online o Presencial
-            </div>
-
-            <div class="w-full">
-              <a
-                class="!bg-none"
-                extended
-                [href]="
-                  'https://wa.me/' +
-                  profileData?.phone +
-                  '?text=' +
-                  profileData?.whatsappMessage
-                "
-                target="_blank"
-              >
-                <div
-                  class="flex items-center flex-col gap-3 rounded-2xl w-[240px] h-auto bg-[#5f021a] px-4 py-2 mx-auto"
-                >
-                  <div>¡Agenda tu clase!</div>
-                  <div class="flex justify-center items-center gap-3">
-                    <img class="!w-[24px]" src="../../assets/icons/whatsapp.svg" alt="" />
-                    {{ profileData?.phoneView }}
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div
-            class="social-media gap-1 flex flex-col items-center pt-2 border-t-2 border-t-[#5f021a]"
-          >
-            <div>Contactame</div>
-            <div
-              class="items-center px-5 py-2.5 rounded-lg w-full flex justify-center flex-wrap gap-4"
-            >
-              <a
-                class="!bg-none"
-                extended
-                [href]="profileData?.urlSelection"
-                target="_blank"
-              >
-                <img class="!w-[29px]" src="../../assets/icons/educación.svg" alt="" />
-              </a>
-
-              <a
-                class="!bg-none"
-                [href]="profileData?.urlInstamgram"
-                target="_blank"
-                extended
-              >
-                <img class="!w-[22px]" src="../../assets/icons/instragram.svg" alt="" />
-              </a>
-
-              <a
-                class="!bg-none"
-                [href]="profileData?.urlYoutube"
-                target="_blank"
-                extended
-              >
-                <img class="!w-[26px]" src="../../assets/icons/youtube.svg" alt="" />
-              </a>
-
-              <a
-                class="!bg-none"
-                href="mailto:paola.shiadani.pianista@gmail.com"
-                target="_blank"
-              >
-                <img
-                  class="!w-[24.5px]"
-                  src="../../assets/icons/gmail.svg"
-                  alt="Gmail Icon"
-                />
-              </a>
-
-              <a
-                class="!bg-none"
-                [href]="profileData?.urlTokTok"
-                target="_blank"
-                extended
-              >
-                <img class="!w-[24px]" src="../../assets/icons/tiktok.svg" alt="" />
-              </a>
-
-              <a
-                class="!bg-none"
-                [href]="profileData?.urlFacebook"
-                target="_blank"
-                extended
-              >
-                <img class="!w-[24px]" src="../../assets/icons/facebook.svg" alt="" />
-              </a>
-
-              <!-- <a
-                class="!bg-none"
-                extended
-                [href]="
-                  'https://wa.me/' +
-                  profileData?.phone +
-                  '?text=' +
-                  profileData?.whatsappMessage
-                "
-                target="_blank"
-              >
-                <img class="!w-[24px]" src="../../assets/icons/whatsapp.svg" alt="" />
-              </a> -->
-            </div>
-          </div>
-        </div>
-      </mat-card>
     </div>
-  }
+  </div>
 </div>

@@ -13,6 +13,8 @@ import { PianoClassProfile } from '../models/pianoLesson-model';
 import { TestimoniesModule } from '../models/successStories-model';
 import { PromotionalModel } from '../models/promotional-model';
 import { FirestoreService } from '../service/firestore.service';
+import { EventsComponent } from '../events/events.component';
+import { EventProfile } from '../models/event-model';
 
 @Component({
   selector: 'app-web-public',
@@ -24,6 +26,7 @@ import { FirestoreService } from '../service/firestore.service';
     ClasesPianoComponent,
     TestimoniosComponent,
     PromocionalesComponent,
+    EventsComponent,
   ],
   templateUrl: './web-public.component.html',
   styleUrl: './web-public.component.scss',
@@ -45,6 +48,7 @@ export class WebPublicComponent implements OnInit, OnDestroy {
   public pianoLessons: PianoClassProfile | null = null;
   public successStories: TestimoniesModule | null = null;
   public promotional: PromotionalModel | null = null;
+  public pianoEvents: EventProfile | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +57,7 @@ export class WebPublicComponent implements OnInit, OnDestroy {
   ) {
     this.getAboutMe();
     this.getPianoLessons();
+    this.getEventLessons();
     this.getSuccessStories();
     this.getPromotional();
   }
@@ -117,6 +122,17 @@ export class WebPublicComponent implements OnInit, OnDestroy {
       })
     );
   }
+
+  private getEventLessons(): void {
+    this.subscribeArray.push(
+      this.firestoreService.getCollection('eventSecciones').subscribe({
+        next: (pianoEvents: EventProfile[]) => {
+          this.pianoEvents = pianoEvents[0];
+        },
+      })
+    );
+  }
+
   private getSuccessStories(): void {
     this.subscribeArray.push(
       this.firestoreService.getCollection('successStories').subscribe({
