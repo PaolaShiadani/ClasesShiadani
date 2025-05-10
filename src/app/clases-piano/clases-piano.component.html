@@ -26,12 +26,13 @@
             {{ syllabu.topicName }}
           </mat-panel-title>
         </mat-expansion-panel-header>
-
-        <img
-          class="h-[320px] md:h-[500px] object-cover p-2 m-auto"
-          mat-card-image
-          [src]="syllabu?.url"
-        />
+        @if (syllabu.url) {
+          <img
+            class="h-[320px] md:h-[500px] object-cover p-2 m-auto"
+            mat-card-image
+            [src]="syllabu?.url"
+          />
+        }
 
         @for (topic of syllabu.topicBody; track $index) {
           @if (topic.subtopicTilule.length) {

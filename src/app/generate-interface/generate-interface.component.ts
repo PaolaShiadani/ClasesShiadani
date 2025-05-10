@@ -202,7 +202,7 @@ export class GenerateInterfaceComponent {
   addTopic(): void {
     const topicGroup = this.fb.group({
       topicName: ['', Validators.required],
-      url: ['', Validators.required],
+      url: [''],
       topicBody: this.fb.array([]),
     });
     this.syllabusControls.push(topicGroup);
