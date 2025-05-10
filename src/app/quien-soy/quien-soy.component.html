@@ -13,13 +13,13 @@
         [src]="profileData.urlProfileImg"
         alt="Photo of a Shiba Inu"
       />
-    }
 
-    <mat-card-content>
-      <p class="text-sm" style="white-space: pre-line">
-        {{ profileData?.textBody ?? '' }}
-      </p>
-    </mat-card-content>
+      <mat-card-content>
+        <p class="text-sm" style="white-space: pre-line">
+          {{ profileData.textBody }}
+        </p>
+      </mat-card-content>
+    }
 
     <div
       class="social-media gap-1 flex flex-col items-center pt-2 border-t-2 border-t-[#5f021a] mx-4"
