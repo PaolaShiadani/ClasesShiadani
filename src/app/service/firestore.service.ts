@@ -9,6 +9,7 @@ import { TestimoniesModule } from '../models/successStories-model';
 import { PromotionalModel } from '../models/promotional-model';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 import imageCompression from 'browser-image-compression';
+import { EventProfile } from '../models/event-model';
 
 @Injectable({
   providedIn: 'root',
@@ -66,7 +67,7 @@ export class FirestoreService {
     const profileDocRef = doc(this.firestoreUpgrade, `${'pianoLessons'}/b9AE8HqgD846VKt6Agph`);
     return from(setDoc(profileDocRef, profile, { merge: true }));
   }
-  public updatePianoClassProfileEvent(profile: Partial<PianoClassProfile>): Observable<void> {
+  public updatePianoClassProfileEvent(profile: Partial<EventProfile>): Observable<void> {
     const profileDocRef = doc(this.firestoreUpgrade, `${'eventSecciones'}/kmnCwgwBeQJM16xpqDTu`);
     return from(setDoc(profileDocRef, profile, { merge: true }));
   }
@@ -90,7 +91,7 @@ export class FirestoreService {
 
   async uploadToFirebase(file: File): Promise<string> {
     const fileAux = await this.convertToWebp(file);
-    console.log(fileAux);
+
     const storageRef = ref(this.fstorage, `Perfil/${fileAux.name}`); // Crear una referencia de almacenamiento
     await uploadBytes(storageRef, fileAux); // Subir el archivo
     const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
@@ -99,14 +100,19 @@ export class FirestoreService {
     return downloadUrl;
   }
 
-  async uploadToFirebaseEvent(file: File): Promise<void> {
+  async uploadToFirebaseEvent(file: File, isMobile: boolean): Promise<void> {
     const fileAux = await this.convertToWebp(file);
-    console.log(fileAux);
+
     const storageRef = ref(this.fstorage, `eventSecciones/${fileAux.name}`); // Crear una referencia de almacenamiento
     await uploadBytes(storageRef, fileAux); // Subir el archivo
     const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
     const profileDocRef = doc(this.firestoreUpgrade, `${'eventSecciones'}/kmnCwgwBeQJM16xpqDTu`);
-    from(setDoc(profileDocRef, { urlProfileImg: downloadUrl }, { merge: true }));
+    if (isMobile) {
+      from(setDoc(profileDocRef, { urlProfileImgMobile: downloadUrl }, { merge: true }));
+      console.log(downloadUrl, 'esMObile');
+    } else {
+      from(setDoc(profileDocRef, { urlProfileImg: downloadUrl }, { merge: true }));
+    }
   }
 
   async uploadToFirebaseSecsion(file: File): Promise<string> {

@@ -88,9 +88,11 @@ export class GenerateInterfaceComponent {
       id: ['', Validators.required],
       moduleName: ['', Validators.required],
       urlProfileImg: ['', Validators.required],
+      urlProfileImgMobile: [''],
       titule: ['', Validators.required],
       textBody: ['', Validators.required],
       urlMap: [''],
+      urlLink: [''],
       syllabus: this.fb.array([]),
     });
 
@@ -322,7 +324,8 @@ export class GenerateInterfaceComponent {
     const topicGroup = this.fb.group({
       topicName: ['', Validators.required],
       url: ['', Validators.required],
-      urlMap: ['', Validators.required],
+      urlMap: [''],
+      urlLink: [''],
       topicBody: this.fb.array([]),
     });
     this.syllabusControlsEvent.push(topicGroup);
@@ -351,7 +354,7 @@ export class GenerateInterfaceComponent {
   }
 
   updatePianoClassProfileEvent(): void {
-    const formValue: PianoClassProfile = this.eventForm.value;
+    const formValue: EventProfile = this.eventForm.value;
     this.firestoreService.updatePianoClassProfileEvent(formValue).subscribe((ress) => {
       location.reload();
     });
@@ -364,8 +367,10 @@ export class GenerateInterfaceComponent {
       moduleName: data.moduleName,
       titule: data.titule,
       urlProfileImg: data.urlProfileImg,
+      urlProfileImgMobile: data.urlProfileImgMobile,
       textBody: data.textBody,
       urlMap: data.urlMap,
+      urlLink: data.urlLink,
     });
 
     // Llenar el FormArray 'syllabus'
@@ -377,6 +382,7 @@ export class GenerateInterfaceComponent {
         topicName: [topic.topicName, Validators.required],
         url: [topic.url],
         urlMap: [topic.urlMap],
+        urlLink: [topic.urlLink],
         topicBody: this.fb.array(
           topic.topicBody.map((subtopic) =>
             this.fb.group({
@@ -393,8 +399,17 @@ export class GenerateInterfaceComponent {
 
   public upFileEvent(event: any) {
     const file: File = event.target.files[0];
-    this.firestoreService.uploadToFirebaseEvent(file).then((ress) => {
-      this.eventForm.controls['urlProfileImg'].setValue(ress);
+    this.firestoreService.uploadToFirebaseEvent(file, false).then((ress) => {
+      console.log(ress);
+      // this.eventForm.controls['urlProfileImg'].setValue(ress);
+    });
+  }
+
+  public upFileEventMobile(event: any) {
+    const file: File = event.target.files[0];
+    console.log('Entra');
+    this.firestoreService.uploadToFirebaseEvent(file, true).then((ress) => {
+      // this.eventForm.controls['urlProfileImgMobile'].setValue(ress);
     });
   }
 

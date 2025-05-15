@@ -291,7 +291,7 @@
               for="imageInput"
               class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             >
-              Imagen Perfil
+              Imagen Perfil Grande
               <input
                 style="display: none"
                 placeholder="Cambiar imagen"
@@ -309,6 +309,33 @@
             <input
               matInput
               formControlName="urlProfileImg"
+              placeholder="URL de la imagen"
+            />
+          </mat-form-field>
+
+          <div class="flex gap-4 items-center pb-8">
+            <label
+              for="imageInputMobile"
+              class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              Imagen Perfil Mobile
+              <input
+                style="display: none"
+                placeholder="Cambiar imagen"
+                type="file"
+                id="imageInputMobile"
+                accept="image/*"
+                (change)="upFileEventMobile($event)"
+              />
+            </label>
+          </div>
+
+          <!-- Campo para la URL de la imagen -->
+          <mat-form-field class="w-full">
+            <mat-label>URL de la imagen de perfil Mobile</mat-label>
+            <input
+              matInput
+              formControlName="urlProfileImgMobile"
               placeholder="URL de la imagen"
             />
           </mat-form-field>
@@ -334,6 +361,12 @@
           <mat-form-field class="w-full">
             <mat-label>Ubicación</mat-label>
             <input matInput formControlName="urlMap" placeholder="Ubicación del evento" />
+          </mat-form-field>
+
+          <!-- Campo para el título -->
+          <mat-form-field class="w-full">
+            <mat-label>urlLink</mat-label>
+            <input matInput formControlName="urlLink" placeholder="Link del Evento" />
           </mat-form-field>
 
           <!-- Campo para el temario -->
@@ -379,6 +412,15 @@
                     matInput
                     formControlName="urlMap"
                     placeholder="Ubicación del evento"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                  <mat-label>urlLink</mat-label>
+                  <input
+                    matInput
+                    formControlName="urlLink"
+                    placeholder="Link del evento"
                   />
                 </mat-form-field>
 

@@ -21,8 +21,7 @@ export class EventsComponent {
   @HostListener('window:resize', ['$event'])
   @Input()
   profileData: ProfileData | null = null;
-  zoom = 14;
-  center = { lat: 40.4168, lng: -3.7038 }; // Ubicación: Madrid
+  public sizeW = 0;
 
   getScreenSize(): void {
     if (this.isPlatformBrowser()) {
@@ -57,6 +56,7 @@ export class EventsComponent {
     if (this.isPlatformBrowser()) {
       const sizeW = window.innerWidth;
       const sizeH = window.innerHeight;
+      this.sizeW = window.innerWidth;
       return sizeW <= 742 || sizeH <= 450;
     }
     return false;
