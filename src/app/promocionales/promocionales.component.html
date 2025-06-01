@@ -1,52 +1,66 @@
-<div class="flex flex-col justify-center gap-4">
-
-  <div class="overflow-auto" id="scrollableDiv">
+<div class="flex flex-col items-center justify-between gap-4 !h-[calc(100svh-140px)]">
+  <div class="overflow-auto !h-full" id="scrollableDiv">
     @if (load) {
-    <div class="container-general">
-
-      <div class="w-full flex flex-row-reverse p-4">
-        <app-select-general class="" [formControlGeneral]="formFilters" [arrayData]="filter"
-          [placeholder]="'filter'"></app-select-general>
-      </div>
-
-      @for (video of videsoArrayFilter; track $index) {
-      @if(isIndexVisible($index,indexPage,5) && videsoArrayFilter.length){
-      <mat-card appearance="outlined">
-        <mat-card-content><span class="text-lg">
-            {{ video.titule }}
-          </span></mat-card-content>
-        <div class="video-general p-2">
-          @if (mobile) {
-          <div class="video-container w-full">
-            <iframe [src]="video.urlRes" title="Nuvole Bianche - Ludovico Einaudi (Paola Shiadani)" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-          </div>
-
-          } @else {
-          <div>
-            <iframe [width]="width" [height]="height" [src]="video.urlRes" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-          </div>
-          }
+      <div class="container-general">
+        <div class="w-full flex flex-row-reverse p-4">
+          <app-select-general
+            class=""
+            [formControlGeneral]="formFilters"
+            [arrayData]="filter"
+            [placeholder]="'filter'"
+          ></app-select-general>
         </div>
-        <mat-card-content>
-          <p class="text-sm">
-            {{ video.description }}
-          </p>
-        </mat-card-content>
-      </mat-card>
-      }
-      }
 
-    </div>
+        @for (video of videsoArrayFilter; track $index) {
+          @if (isIndexVisible($index, indexPage, 5) && videsoArrayFilter.length) {
+            <mat-card appearance="outlined">
+              <mat-card-content
+                ><span class="text-lg">
+                  {{ video.titule }}
+                </span></mat-card-content
+              >
+              <div class="video-general p-2">
+                @if (mobile) {
+                  <div class="video-container w-full">
+                    <iframe
+                      [src]="video.urlRes"
+                      title="Nuvole Bianche - Ludovico Einaudi (Paola Shiadani)"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                } @else {
+                  <div>
+                    <iframe
+                      [width]="width"
+                      [height]="height"
+                      [src]="video.urlRes"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                }
+              </div>
+              <mat-card-content>
+                <p class="text-sm">
+                  {{ video.description }}
+                </p>
+              </mat-card-content>
+            </mat-card>
+          }
+        }
+      </div>
     }
-
   </div>
-  <mat-paginator class="mx-4" [length]="videsoArrayFilter.length" [pageSize]="5" (page)="newIndex($event.pageIndex)"
-    [pageIndex]="indexPage">
+  <mat-paginator
+    class="mx-4 w-full"
+    [length]="videsoArrayFilter.length"
+    [pageSize]="5"
+    (page)="newIndex($event.pageIndex)"
+    [pageIndex]="indexPage"
+  >
     >
   </mat-paginator>
-
 </div>

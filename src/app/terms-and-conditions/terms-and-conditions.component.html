@@ -1,0 +1,32 @@
+<div class="background-general">
+  <div [class.margin-top]="mobile" class="mb-4 flex flex-col gap-6">
+    <div class="">
+      <div class="py-6 px-8 h-[601x] flex justify-between bg-[#5f021a] items-center">
+        <a href="" class="relative z-10 text-white lg:text-4xl md:text-lg text-3lg">
+          Clases de Piano con Paola Shiadani
+        </a>
+        <p class="text-end text-xs">vB-1.4.1</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="container-general flex flex-col justify-center gap-4 py-4">
+        <mat-card-content class="">
+          <span class="text-lg text-center items-center flex justify-center">
+            Terminos y condiciones
+          </span>
+        </mat-card-content>
+
+        <div
+          class="social-media gap-1 flex flex-col items-center pt-2 border-t-2 border-t-[#5f021a]"
+        >
+          <iframe
+            [src]="pdfSafeUrl"
+            width="100%"
+            class="h-[calc(100svh-214px)] border-none"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

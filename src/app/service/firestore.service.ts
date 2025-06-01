@@ -109,7 +109,6 @@ export class FirestoreService {
     const profileDocRef = doc(this.firestoreUpgrade, `${'eventSecciones'}/kmnCwgwBeQJM16xpqDTu`);
     if (isMobile) {
       from(setDoc(profileDocRef, { urlProfileImgMobile: downloadUrl }, { merge: true }));
-      console.log(downloadUrl, 'esMObile');
     } else {
       from(setDoc(profileDocRef, { urlProfileImg: downloadUrl }, { merge: true }));
     }
@@ -117,7 +116,7 @@ export class FirestoreService {
 
   async uploadToFirebaseSecsion(file: File): Promise<string> {
     const fileAux = await this.convertToWebp(file);
-    console.log(fileAux);
+
     const storageRef = ref(this.fstorage, `clasesPianoSecciones/${fileAux.name}`); // Crear una referencia de almacenamiento
     await uploadBytes(storageRef, fileAux); // Subir el archivo
     const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
@@ -126,7 +125,7 @@ export class FirestoreService {
 
   async uploadToFirebaseSecsionEvent(file: File): Promise<string> {
     const fileAux = await this.convertToWebp(file);
-    console.log(fileAux);
+
     const storageRef = ref(this.fstorage, `eventSecciones/${fileAux.name}`); // Crear una referencia de almacenamiento
     await uploadBytes(storageRef, fileAux); // Subir el archivo
     const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
@@ -135,7 +134,7 @@ export class FirestoreService {
 
   async uploadToFirebaseStoy(file: File): Promise<string> {
     const fileAux = await this.convertToWebp(file);
-    console.log(fileAux);
+
     const storageRef = ref(this.fstorage, `experiencias/${fileAux.name}`); // Crear una referencia de almacenamiento
     await uploadBytes(storageRef, fileAux); // Subir el archivo
     const downloadUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga

@@ -4,6 +4,9 @@ interface SyllabusTopic {
   topicName: string;
   url: string;
   urlLink: string;
+  textUrlLink: string;
+  urlLink2: string;
+  textUrlLink2: string;
   urlMap?: SafeResourceUrl | string;
   topicBody: {
     subtopicTilule: string;
@@ -20,5 +23,8 @@ export interface EventProfile {
   titule: string;
   textBody: string;
   urlLink: string;
+  textUrlLink: string;
+  urlLink2: string;
+  textUrlLink2: string;
   urlMap?: SafeResourceUrl | string;
 }

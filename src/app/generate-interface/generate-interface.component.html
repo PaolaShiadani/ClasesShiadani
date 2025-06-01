@@ -369,6 +369,30 @@
             <input matInput formControlName="urlLink" placeholder="Link del Evento" />
           </mat-form-field>
 
+          <!-- Campo para el título -->
+          <mat-form-field class="w-full">
+            <mat-label>textUrlLink</mat-label>
+            <input
+              matInput
+              formControlName="textUrlLink"
+              placeholder="Texto Link del Evento"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>urlLink2</mat-label>
+            <input matInput formControlName="urlLink2" placeholder="Link del Evento" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>textUrlLink2</mat-label>
+            <input
+              matInput
+              formControlName="textUrlLink2"
+              placeholder="Texto Link del Evento"
+            />
+          </mat-form-field>
+
           <!-- Campo para el temario -->
           <div formArrayName="syllabus">
             @for (topic of syllabusControlsEvent.controls; track topic; let i = $index) {
@@ -421,6 +445,33 @@
                     matInput
                     formControlName="urlLink"
                     placeholder="Link del evento"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                  <mat-label>textUrlLink</mat-label>
+                  <input
+                    matInput
+                    formControlName="textUrlLink"
+                    placeholder="Texto url del evento"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                  <mat-label>urlLink2</mat-label>
+                  <input
+                    matInput
+                    formControlName="urlLink2"
+                    placeholder="Link del Evento"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                  <mat-label>textUrlLink2</mat-label>
+                  <input
+                    matInput
+                    formControlName="textUrlLink2"
+                    placeholder="Texto Link del Evento"
                   />
                 </mat-form-field>
 

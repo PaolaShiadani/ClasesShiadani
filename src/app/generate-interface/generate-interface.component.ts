@@ -93,6 +93,9 @@ export class GenerateInterfaceComponent {
       textBody: ['', Validators.required],
       urlMap: [''],
       urlLink: [''],
+      textUrlLink: [''],
+      urlLink2: [''],
+      textUrlLink2: [''],
       syllabus: this.fb.array([]),
     });
 
@@ -326,6 +329,9 @@ export class GenerateInterfaceComponent {
       url: ['', Validators.required],
       urlMap: [''],
       urlLink: [''],
+      textUrlLink: [''],
+      urlLink2: [''],
+      textUrlLink2: [''],
       topicBody: this.fb.array([]),
     });
     this.syllabusControlsEvent.push(topicGroup);
@@ -371,6 +377,9 @@ export class GenerateInterfaceComponent {
       textBody: data.textBody,
       urlMap: data.urlMap,
       urlLink: data.urlLink,
+      textUrlLink: data.textUrlLink,
+      urlLink2: data.urlLink2,
+      textUrlLink2: data.textUrlLink2,
     });
 
     // Llenar el FormArray 'syllabus'
@@ -383,6 +392,7 @@ export class GenerateInterfaceComponent {
         url: [topic.url],
         urlMap: [topic.urlMap],
         urlLink: [topic.urlLink],
+        textUrlLink: [topic.textUrlLink],
         topicBody: this.fb.array(
           topic.topicBody.map((subtopic) =>
             this.fb.group({
@@ -400,14 +410,12 @@ export class GenerateInterfaceComponent {
   public upFileEvent(event: any) {
     const file: File = event.target.files[0];
     this.firestoreService.uploadToFirebaseEvent(file, false).then((ress) => {
-      console.log(ress);
       // this.eventForm.controls['urlProfileImg'].setValue(ress);
     });
   }
 
   public upFileEventMobile(event: any) {
     const file: File = event.target.files[0];
-    console.log('Entra');
     this.firestoreService.uploadToFirebaseEvent(file, true).then((ress) => {
       // this.eventForm.controls['urlProfileImgMobile'].setValue(ress);
     });

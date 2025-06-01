@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,15 +19,28 @@ export class QuienSoyComponent {
       this.mobile = this.isMobile();
     }
   }
+  @Input() profileData: ProfileData | null = null;
   public load = true;
   public mobile = false;
   public width = 640;
   public height = 360;
   public sizeH = 0;
 
-  @Input() profileData: ProfileData | null = null;
+  // Pruebas fotos
+  private imageId = '1HQuxXjymU8KIuNYMqSikE9kohFXa6a7d';
+  public resourceUrl: SafeResourceUrl | null = null;
+  //
 
   ngOnInit(): void {}
+
+  // Pruebas fotos
+  constructor(public sanitizer: DomSanitizer) {
+    const url = `https://drive.usercontent.google.com/download?id=${this.imageId}&export=view&authuser=0`;
+    this.resourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    console.log(this.resourceUrl);
+  }
+
+  //
 
   public isMobile(): boolean {
     if (this.isPlatformBrowser()) {

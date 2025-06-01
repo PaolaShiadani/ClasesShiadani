@@ -69,4 +69,19 @@ export class ClasesPianoComponent {
   private isPlatformBrowser(): boolean {
     return typeof window !== 'undefined';
   }
+
+  public scrollToPanel(index: string | number): void {
+    setTimeout(function () {
+      const element = document.getElementById('panelRefCalss' + index);
+      const container = document.getElementById('divClasesConteiner') as HTMLElement;
+
+      if (element && container) {
+        const elementOffset = element.offsetTop - container.offsetTop;
+        container.scrollTo({
+          top: elementOffset,
+          behavior: 'smooth',
+        });
+      }
+    }, 150);
+  }
 }

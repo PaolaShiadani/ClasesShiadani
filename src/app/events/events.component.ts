@@ -30,17 +30,14 @@ export class EventsComponent {
   }
   public mobile = false;
 
-  constructor(private sanitizer: DomSanitizer) {
-    console.log(this.eventProfile?.urlMap);
-  }
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     if (this.isPlatformBrowser()) {
       this.mobile = this.isMobile();
     }
-    console.log(this.eventProfile?.urlMap);
+
     if (this.eventProfile?.urlMap) {
-      console.log('Entra');
       const map = this.eventProfile.urlMap as string;
       this.eventProfile.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(map);
     }
@@ -64,5 +61,20 @@ export class EventsComponent {
 
   private isPlatformBrowser(): boolean {
     return typeof window !== 'undefined';
+  }
+
+  public scrollToPanel(index: string | number): void {
+    setTimeout(function () {
+      const element = document.getElementById('panelRef' + index);
+      const container = document.getElementById('divEventConteiner') as HTMLElement;
+
+      if (element && container) {
+        const elementOffset = element.offsetTop - container.offsetTop;
+        container.scrollTo({
+          top: elementOffset,
+          behavior: 'smooth',
+        });
+      }
+    }, 150);
   }
 }
