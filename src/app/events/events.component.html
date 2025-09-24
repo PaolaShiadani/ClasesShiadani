@@ -33,9 +33,9 @@
     </mat-card>
 
     @if (eventProfile && eventProfile.urlLink2) {
-      <div class="p-4">
+      <div class="">
         <a
-          class="!bg-none m-auto !text-white underline"
+          class="!bg-none px-4 !text-white underline"
           extended
           [href]="eventProfile.urlLink2"
           target="_blank"
@@ -48,7 +48,7 @@
     @if (eventProfile && eventProfile.urlLink) {
       <div class="m-auto">
         <a
-          class="!bg-none m-auto !text-white"
+          class="!bg-none px-4 !text-white"
           extended
           [href]="eventProfile.urlLink"
           target="_blank"
@@ -108,9 +108,9 @@
           }
 
           @if (syllabuAux && syllabuAux.urlLink2) {
-            <div class="flex p-4">
+            <div class="flex py-4">
               <a
-                class="!bg-none m-auto !text-white underline"
+                class="!bg-none !text-white underline"
                 extended
                 [href]="syllabuAux.urlLink2"
                 target="_blank"

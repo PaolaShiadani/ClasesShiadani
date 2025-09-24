@@ -6,7 +6,6 @@ import { TestimoniosComponent } from '../testimonios/testimonios.component';
 import { ClasesPianoComponent } from '../clases-piano/clases-piano.component';
 import { MatIconModule } from '@angular/material/icon';
 import { QuienSoyComponent } from '../quien-soy/quien-soy.component';
-import { GenerateInterfaceComponent } from '../generate-interface/generate-interface.component';
 import { Subscription } from 'rxjs';
 import { ProfileData } from '../models/aboutMe-model';
 import { PianoClassProfile } from '../models/pianoLesson-model';

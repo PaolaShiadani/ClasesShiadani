@@ -393,6 +393,8 @@ export class GenerateInterfaceComponent {
         urlMap: [topic.urlMap],
         urlLink: [topic.urlLink],
         textUrlLink: [topic.textUrlLink],
+        urlLink2: [topic.urlLink2],
+        textUrlLink2: [topic.textUrlLink2],
         topicBody: this.fb.array(
           topic.topicBody.map((subtopic) =>
             this.fb.group({
